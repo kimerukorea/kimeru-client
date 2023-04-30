@@ -1,5 +1,6 @@
 import { CommonLayout } from "@/components/@shared";
 import { GlobalCSS } from "@/styles";
+import { Database } from "@/types/supabase";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import {
   Session,
@@ -32,8 +33,10 @@ const App = ({
   Component,
   pageProps,
 }: AppProps<{ dehydratedState: DehydratedState; initialSession: Session }>) => {
-  // TODO generic should be DateBase
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  //TODO: supabase client 일원화
+  const [supabaseClient] = useState(() =>
+    createBrowserSupabaseClient<Database>()
+  );
 
   return (
     <SessionContextProvider
