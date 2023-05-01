@@ -1,9 +1,10 @@
 import { PageLoader, SwitchCase } from "@/components/@shared";
-import { Suspense } from "@suspensive/react";
+import { AsyncBoundary, Suspense } from "@suspensive/react";
 import { Final, Landing, Main } from "../components";
 import { useQuestionCount, useQuizInfo } from "../hooks";
 import { useStepStore } from "../stores/step/step.store";
 import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
+import { GlobalErrorLoader } from "@/components/@shared/global-error-loader/GlobalErrorLoader";
 
 export const QuizPage = () => {
   const { currentStep } = useStepStore();
@@ -19,13 +20,27 @@ export const QuizPage = () => {
       />
       <SwitchCase
         value={`${currentStep}`}
-        defaultComponent={<Main />}
+        defaultComponent={
+          <AsyncBoundary.CSROnly
+            pendingFallback={<PageLoader />}
+            rejectedFallback={(errorProps) => (
+              <GlobalErrorLoader {...errorProps} />
+            )}
+          >
+            <Main />
+          </AsyncBoundary.CSROnly>
+        }
         caseBy={{
           0: <Landing />,
           [questionCount + 1]: (
-            <Suspense.CSROnly fallback={<PageLoader />}>
+            <AsyncBoundary.CSROnly
+              pendingFallback={<PageLoader />}
+              rejectedFallback={(errorProps) => (
+                <GlobalErrorLoader {...errorProps} />
+              )}
+            >
               <Final />
-            </Suspense.CSROnly>
+            </AsyncBoundary.CSROnly>
           ),
         }}
       />
