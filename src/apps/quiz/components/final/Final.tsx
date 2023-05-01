@@ -1,7 +1,8 @@
+import { bottomSlideByBottomProperty, framerMocker } from "@/constants/Motions";
+import { size } from "@/styles";
 import { CopyIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
-  ButtonGroup,
   Divider,
   Heading,
   Portal,
@@ -9,26 +10,26 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import Image from "next/image";
-import { useGetQuizInfoQuery } from "../../queries";
-import { useAnswer, useCTAButton, useFinalInfo } from "./FInal.hooks";
 import { motion } from "framer-motion";
-import { bottomSlideByBottomProperty, framerMocker } from "@/constants/Motions";
+import Lottie from "lottie-react";
+import { useGetQuizInfoQuery } from "../../queries";
+import {
+  useAnswer,
+  useCTAButton,
+  useFinalInfo,
+  useFinalLottieSrc,
+} from "./FInal.hooks";
 
 export const Final = () => {
   const { finalInfo } = useFinalInfo();
   const { data: quizInfo } = useGetQuizInfoQuery();
   const { answerCount } = useAnswer();
   const { handleShareButtonClick, handleOtherQuizButtonClick } = useCTAButton();
+  const lottieAnimationData = useFinalLottieSrc();
 
   return (
     <VStack>
-      <Image
-        src={finalInfo.descriptionImageUrl}
-        alt=""
-        width={200}
-        height={200}
-      />
+      <LottieAnimation loop autoplay animationData={lottieAnimationData} />
       <Text color="orange.200" fontSize="2xl">
         당신의 레벨은
       </Text>
@@ -84,4 +85,11 @@ const BottomButtonGroup = styled(motion.div)`
 
 const ShadowedButton = styled(Button)`
   box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+`;
+
+const LottieAnimation = styled(Lottie)`
+  ${size({
+    width: 200,
+    height: 200,
+  })}
 `;

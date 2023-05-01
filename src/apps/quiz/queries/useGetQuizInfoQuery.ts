@@ -13,6 +13,7 @@ export const useGetQuizInfoQuery = () => {
     () => getQuizInfo({ quizId: quizId! }),
     {
       refetchOnWindowFocus: false,
+      staleTime: 1000 * 60,
     }
   );
 };

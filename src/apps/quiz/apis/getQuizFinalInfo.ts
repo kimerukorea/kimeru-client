@@ -6,7 +6,8 @@ export const getQuizFinalInfo = async ({ quizId }: { quizId: string }) => {
   const { data } = await supabase
     .from("finalList")
     .select("*")
-    .eq("quizId", quizId);
+    .eq("quizId", quizId)
+    .order("maxRange");
 
   return data;
 };

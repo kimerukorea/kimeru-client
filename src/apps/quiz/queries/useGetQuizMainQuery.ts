@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@suspensive/react-query";
 import { useRouter } from "next/router";
 import { getQuizMain } from "../apis/getQuizMain";
-import { useSuspenseQuery } from "@suspensive/react-query";
 
 export const GET_QUIZ_MAIN_QUERY_KEY = "get-quiz-main";
 
@@ -14,7 +13,7 @@ export const useGetQuizMainQuery = () => {
     () => getQuizMain({ quizId: quizId! }),
     {
       refetchOnWindowFocus: false,
-      staleTime: 60,
+      staleTime: 1000 * 60,
     }
   );
 };
