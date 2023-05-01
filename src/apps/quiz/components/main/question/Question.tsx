@@ -1,3 +1,4 @@
+import { useCurrentQuestion } from "@/apps/quiz/hooks";
 import { CheckCircleIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -10,10 +11,8 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { useCTAButton } from "./Question.hooks";
+import { useCTAButton, useProgressValue } from "./Question.hooks";
 import { QuestionProps } from "./Question.types";
-import { useCurrentQuestion, useQuestionCount } from "@/apps/quiz/hooks";
-import { useStepStore } from "@/apps/quiz/stores/step/step.store";
 
 export const Question = ({ showSolution }: QuestionProps) => {
   const { title, descriptionImageUrl, descriptionExplanation } =
@@ -23,9 +22,7 @@ export const Question = ({ showSolution }: QuestionProps) => {
     showSolution,
   });
 
-  const { questionCount } = useQuestionCount();
-
-  const currentStep = useStepStore((state) => state.currentStep);
+  const progressValue = useProgressValue();
 
   return (
     <VStack gap={10}>
@@ -34,7 +31,7 @@ export const Question = ({ showSolution }: QuestionProps) => {
         colorScheme="orange"
         size="xs"
         hasStripe
-        value={(currentStep / questionCount) * 100}
+        value={progressValue}
       />
 
       <Heading size="md" color="orange.300">
