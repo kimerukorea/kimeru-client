@@ -14,7 +14,7 @@ export const useGetQuizMainQuery = () => {
     () => getQuizMain({ quizId: quizId! }),
     {
       refetchOnWindowFocus: false,
-      staleTime: 60 * 1000,
+      staleTime: 60,
     }
   );
 };
