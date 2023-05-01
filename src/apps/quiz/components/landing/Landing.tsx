@@ -4,18 +4,19 @@ import {
   framerMocker,
 } from "@/constants/Motions";
 import { Spacing } from "@/styles";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { Button, Heading, Portal, Text, VStack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { commaizeNumber } from "@toss/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useQuizInfo } from "../../hooks";
-import { useStartButton } from "./Landing.hooks";
+import { useCTAButton } from "./Landing.hooks";
 
 export const Landing = () => {
   const { quizInfo } = useQuizInfo();
-  const { handleStartButtonClick } = useStartButton();
+  const { handleGoMainPageButtonClick, handleStartButtonClick } =
+    useCTAButton();
 
   return (
     <VStack gap={20}>
@@ -43,6 +44,14 @@ export const Landing = () => {
           {...framerMocker}
         >
           <ShadowedButton
+            rightIcon={<ExternalLinkIcon />}
+            width="full"
+            onClick={handleGoMainPageButtonClick}
+            colorScheme="whiteAlpha"
+          >
+            메인 페이지 가기
+          </ShadowedButton>
+          <ShadowedButton
             rightIcon={<ChevronRightIcon />}
             width="full"
             onClick={handleStartButtonClick}
@@ -60,6 +69,8 @@ const BottomButtonGroup = styled(motion.div)`
   left: 20px;
   right: 20px;
   bottom: 40px;
+  display: flex;
+  gap: 8px;
 `;
 
 const ShadowedButton = styled(Button)`
