@@ -15,6 +15,7 @@ export interface Database {
           descriptionExplanation: string;
           descriptionImageUrl: string;
           id: number;
+          mainTitle: string;
           maxRange: number;
           quizId: number;
         };
@@ -23,6 +24,7 @@ export interface Database {
           descriptionExplanation: string;
           descriptionImageUrl: string;
           id?: number;
+          mainTitle: string;
           maxRange: number;
           quizId: number;
         };
@@ -31,6 +33,7 @@ export interface Database {
           descriptionExplanation?: string;
           descriptionImageUrl?: string;
           id?: number;
+          mainTitle?: string;
           maxRange?: number;
           quizId?: number;
         };

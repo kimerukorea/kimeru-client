@@ -15,6 +15,21 @@ export const useGetQuizFinalQuery = () => {
     () => getQuizFinalInfo({ quizId: quizId! }),
     {
       refetchOnWindowFocus: false,
+      select: (data) => {
+        if (!data) {
+          return;
+        }
+
+        const finalInfo = data.find((finalResult) => {
+          return answerCount < finalResult.maxRange;
+        });
+
+        if (!finalInfo) {
+          return;
+        }
+
+        return finalInfo;
+      },
     }
   );
 };
