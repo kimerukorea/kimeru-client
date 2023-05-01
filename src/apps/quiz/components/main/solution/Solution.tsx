@@ -26,12 +26,14 @@ export const Solution = ({ hideSolution }: SolutionProps) => {
       </Heading>
       <VStack>
         <Text color="orange.400">{solutionExplanation}</Text>
-        <DescriptionImage
-          src={solutionImageUrl}
-          alt={solutionExplanation}
-          width={340}
-          height={100}
-        />
+        {solutionImageUrl && (
+          <DescriptionImage
+            src={solutionImageUrl}
+            alt={solutionExplanation}
+            width={340}
+            height={100}
+          />
+        )}
       </VStack>
 
       <Portal>

@@ -29,12 +29,14 @@ export const Question = ({ showSolution }: QuestionProps) => {
 
       <VStack>
         <Text color="orange.400">{descriptionExplanation}</Text>
-        <DescriptionImage
-          src={descriptionImageUrl}
-          alt={descriptionExplanation}
-          width={340}
-          height={100}
-        />
+        {descriptionImageUrl && (
+          <DescriptionImage
+            src={descriptionImageUrl}
+            alt={descriptionExplanation}
+            width={340}
+            height={100}
+          />
+        )}
       </VStack>
 
       <Portal>
