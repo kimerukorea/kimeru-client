@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Question } from "./question/Question";
 import { Solution } from "./solution/Solution";
+import { Suspense } from "@suspensive/react";
 
 export const Main = () => {
   const [showSolution, setShowSolution] = useState<boolean>(false);
@@ -12,9 +13,13 @@ export const Main = () => {
     setShowSolution(false);
   };
 
-  return showSolution ? (
-    <Solution hideSolution={hideSolutionFunctor} />
-  ) : (
-    <Question showSolution={showSolutionFunctor} />
+  return (
+    <Suspense.CSROnly fallback={<div>loading</div>}>
+      {showSolution ? (
+        <Solution hideSolution={hideSolutionFunctor} />
+      ) : (
+        <Question showSolution={showSolutionFunctor} />
+      )}
+    </Suspense.CSROnly>
   );
 };

@@ -9,33 +9,17 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { questions } from "../main.constants";
-import { useStepStore } from "@/apps/quiz/stores/step/step.store";
-import { useAnswerStore } from "@/apps/quiz/stores/answer/answer.store";
+import { useCTAButton } from "./Question.hooks";
 import { QuestionProps } from "./Question.types";
+import { useCurrentQuestion } from "@/apps/quiz/hooks";
 
 export const Question = ({ showSolution }: QuestionProps) => {
-  const currentStep = useStepStore((state) => state.currentStep);
-  const currentQuestion = questions.main[currentStep - 1];
-  const increaseAnswerCount = useAnswerStore(
-    (state) => state.increaseAnswerCount
-  );
+  const { title, descriptionImageUrl, descriptionExplanation } =
+    useCurrentQuestion();
 
-  const { title, description, answerValue } = currentQuestion;
-
-  const handleYesButtonClick = () => {
-    if (answerValue) {
-      increaseAnswerCount();
-    }
-    showSolution();
-  };
-
-  const handleNoButtonClick = () => {
-    if (!answerValue) {
-      increaseAnswerCount();
-    }
-    showSolution();
-  };
+  const { handleYesButtonClick, handleNoButtonClick } = useCTAButton({
+    showSolution,
+  });
 
   return (
     <VStack gap={10}>
@@ -44,10 +28,10 @@ export const Question = ({ showSolution }: QuestionProps) => {
       </Heading>
 
       <VStack>
-        <Text color="orange.400">{description.explanation}</Text>
+        <Text color="orange.400">{descriptionExplanation}</Text>
         <DescriptionImage
-          src={description.imageUrl}
-          alt={description.explanation}
+          src={descriptionImageUrl}
+          alt={descriptionExplanation}
           width={340}
           height={100}
         />

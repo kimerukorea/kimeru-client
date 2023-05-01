@@ -1,4 +1,4 @@
-import { useStepStore } from "@/apps/quiz/stores/step/step.store";
+import { useCurrentQuestion } from "@/apps/quiz/hooks";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -10,22 +10,13 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { questions } from "../main.constants";
+import { useCTAButton } from "./Solution.hooks";
 import { SolutionProps } from "./Solution.types";
 
 export const Solution = ({ hideSolution }: SolutionProps) => {
-  const [currentStep, goToNext] = useStepStore((state) => [
-    state.currentStep,
-    state.goToNext,
-  ]);
-  const currentQuestion = questions.main[currentStep - 1];
+  const { title, solutionImageUrl, solutionExplanation } = useCurrentQuestion();
 
-  const { title, solution } = currentQuestion;
-
-  const handleNextQuestionButtonClick = () => {
-    hideSolution();
-    goToNext();
-  };
+  const { handleNextQuestionButtonClick } = useCTAButton({ hideSolution });
 
   return (
     <VStack gap={10}>
@@ -33,10 +24,10 @@ export const Solution = ({ hideSolution }: SolutionProps) => {
         {title}
       </Heading>
       <VStack>
-        <Text color="orange.400">{solution.explanation}</Text>
+        <Text color="orange.400">{solutionExplanation}</Text>
         <DescriptionImage
-          src={solution.imageUrl}
-          alt={solution.explanation}
+          src={solutionImageUrl}
+          alt={solutionExplanation}
           width={340}
           height={100}
         />

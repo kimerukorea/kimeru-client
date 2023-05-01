@@ -19,7 +19,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const fetchGetQuizInfoQuery = queryClient.fetchQuery(
     [GET_QUIZ_INFO_QUERY_KEY, quizId],
-    () => supabase.from("quizList").select("*").eq("id", quizId)
+    async () => {
+      const { data } = await supabase
+        .from("quizList")
+        .select("*")
+        .eq("id", quizId);
+
+      return data?.[0];
+    }
   );
 
   await Promise.resolve(fetchGetQuizInfoQuery);
