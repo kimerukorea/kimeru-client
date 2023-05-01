@@ -10,13 +10,14 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { useCTAButton } from "./Solution.hooks";
+import { useCTAButton, useFinalSolution } from "./Solution.hooks";
 import { SolutionProps } from "./Solution.types";
 
 export const Solution = ({ hideSolution }: SolutionProps) => {
   const { title, solutionImageUrl, solutionExplanation } = useCurrentQuestion();
 
-  const { handleNextQuestionButtonClick } = useCTAButton({ hideSolution });
+  const { handleCTAButtonClick } = useCTAButton({ hideSolution });
+  const { isFinalSolution } = useFinalSolution();
 
   return (
     <VStack gap={10}>
@@ -39,9 +40,9 @@ export const Solution = ({ hideSolution }: SolutionProps) => {
             rightIcon={<CheckCircleIcon />}
             width="full"
             boxShadow="dark-lg"
-            onClick={handleNextQuestionButtonClick}
+            onClick={handleCTAButtonClick}
           >
-            다음문제
+            {isFinalSolution ? "결과 보기" : "다음 문제"}
           </ShadowedButton>
         </BottomButtonGroup>
       </Portal>
