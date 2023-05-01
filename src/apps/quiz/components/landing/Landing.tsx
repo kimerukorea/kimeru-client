@@ -1,15 +1,14 @@
+import {
+  bottomSlideByBottomProperty,
+  defaultSlideFadeInVariants,
+  framerMocker,
+} from "@/constants/Motions";
 import { Spacing } from "@/styles";
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import {
-  Button,
-  ButtonGroup,
-  Heading,
-  Portal,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Heading, Portal, Text, VStack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { commaizeNumber } from "@toss/utils";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useQuizInfo } from "../../hooks";
 import { useStartButton } from "./Landing.hooks";
@@ -20,7 +19,11 @@ export const Landing = () => {
 
   return (
     <VStack gap={20}>
-      <VStack>
+      <VStack
+        as={motion.div}
+        variants={defaultSlideFadeInVariants("top")}
+        {...framerMocker}
+      >
         <Heading size="lg" color="orange.200">
           {quizInfo.name}
         </Heading>
@@ -34,7 +37,11 @@ export const Landing = () => {
       </Text>
       <Spacing size={40} />
       <Portal>
-        <BottomButtonGroup>
+        <BottomButtonGroup
+          role="group"
+          variants={bottomSlideByBottomProperty}
+          {...framerMocker}
+        >
           <ShadowedButton
             rightIcon={<ChevronRightIcon />}
             width="full"
@@ -48,7 +55,7 @@ export const Landing = () => {
   );
 };
 
-const BottomButtonGroup = styled(ButtonGroup)`
+const BottomButtonGroup = styled(motion.div)`
   position: fixed;
   left: 20px;
   right: 20px;

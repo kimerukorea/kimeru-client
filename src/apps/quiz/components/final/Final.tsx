@@ -12,6 +12,8 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { useGetQuizInfoQuery } from "../../queries";
 import { useAnswer, useCTAButton, useFinalInfo } from "./FInal.hooks";
+import { motion } from "framer-motion";
+import { bottomSlideByBottomProperty, framerMocker } from "@/constants/Motions";
 
 export const Final = () => {
   const { finalInfo } = useFinalInfo();
@@ -45,7 +47,11 @@ export const Final = () => {
       </Text>
 
       <Portal>
-        <BottomButtonGroup>
+        <BottomButtonGroup
+          role="group"
+          variants={bottomSlideByBottomProperty}
+          {...framerMocker}
+        >
           <ShadowedButton
             rightIcon={<CopyIcon />}
             width="full"
@@ -67,11 +73,13 @@ export const Final = () => {
   );
 };
 
-const BottomButtonGroup = styled(ButtonGroup)`
+const BottomButtonGroup = styled(motion.div)`
   position: fixed;
   left: 20px;
   right: 20px;
   bottom: 40px;
+  display: flex;
+  gap: 8px;
 `;
 
 const ShadowedButton = styled(Button)`

@@ -1,5 +1,12 @@
+import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
 import {
-  Box,
+  defaultSlideFadeInVariants,
+  framerMocker,
+  staggerHalf,
+} from "@/constants/Motions";
+import Spacing from "@/styles/emotion-utils/spacing/spacing";
+import { ViewIcon } from "@chakra-ui/icons";
+import {
   Divider,
   Flex,
   Heading,
@@ -9,11 +16,9 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import React from "react";
 import { useGetQuizListQuery } from "../queries/useGetQuizListQuery";
-import { ViewIcon } from "@chakra-ui/icons";
-import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
 
 export const IndexPage = () => {
   const { quizList } = useGetQuizListQuery();
@@ -23,10 +28,21 @@ export const IndexPage = () => {
       <OpenGraph title="퀴즈 리스트" />
       <Image src="/logo.png" alt="kimeru" width={300} height={270} />
 
-      <List width="100%" paddingX="4">
+      <List
+        as={motion.ul}
+        variants={staggerHalf}
+        {...framerMocker}
+        width="100%"
+        paddingX="4"
+      >
         {quizList?.map((quiz) => (
-          <Link key={quiz.id} href={`/quiz/${quiz.id}`}>
-            <ListItem marginY="4">
+          <ListItem
+            as={motion.li}
+            key={quiz.id}
+            variants={defaultSlideFadeInVariants("bottom")}
+            marginY="4"
+          >
+            <Link href={`/quiz/${quiz.id}`}>
               <Flex justifyContent="space-between">
                 <Image
                   src={quiz.thumbnailImageUrl}
@@ -50,9 +66,10 @@ export const IndexPage = () => {
                   </Flex>
                 </Flex>
               </Flex>
-            </ListItem>
-            <Divider />
-          </Link>
+              <Spacing size={10} />
+              <Divider />
+            </Link>
+          </ListItem>
         ))}
       </List>
     </VStack>
