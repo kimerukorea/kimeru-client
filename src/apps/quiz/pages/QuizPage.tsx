@@ -1,8 +1,8 @@
 import { PageLoader, SwitchCase } from "@/components/@shared";
-import { Final, Landing, Main } from "../components";
-import { useStepStore } from "../stores/step/step.store";
-import { useQuestionCount } from "./QuizPage.hooks";
 import { Suspense } from "@suspensive/react";
+import { Final, Landing, Main } from "../components";
+import { useQuestionCount } from "../hooks";
+import { useStepStore } from "../stores/step/step.store";
 
 export const QuizPage = () => {
   const { currentStep } = useStepStore();

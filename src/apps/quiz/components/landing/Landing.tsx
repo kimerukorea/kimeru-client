@@ -9,9 +9,10 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import Image from "next/image";
-import { useQuizInfo, useStartButton } from "./Landing.hooks";
 import { commaizeNumber } from "@toss/utils";
+import Image from "next/image";
+import { useQuizInfo } from "../../hooks";
+import { useStartButton } from "./Landing.hooks";
 
 export const Landing = () => {
   const { quizInfo } = useQuizInfo();

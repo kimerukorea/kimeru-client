@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useQuizInfo } from "../components/landing/Landing.hooks";
 
 export const useStep = () => {
   const [step, setStep] = useState<number>(0);
@@ -27,13 +26,5 @@ export const useAnswer = () => {
   return {
     answerCount,
     increaseAnswerCount,
-  };
-};
-
-export const useQuestionCount = () => {
-  const { quizInfo } = useQuizInfo();
-
-  return {
-    questionCount: quizInfo.questionCount,
   };
 };
