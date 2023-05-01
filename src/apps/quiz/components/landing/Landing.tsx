@@ -27,7 +27,7 @@ export const Landing = () => {
           {quizInfo.description}
         </Text>
       </VStack>
-      <Image src={quizInfo.thumbnailImageUrl} alt="" width={300} height={300} />
+      <Image src={quizInfo.thumbnailImageUrl} alt="" width={200} height={200} />
       <Text color="whiteAlpha.900">
         현재 총 {commaizeNumber(quizInfo.participationCount)} 명이 참여했습니다.
       </Text>
