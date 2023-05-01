@@ -34,7 +34,7 @@ export const IndexPage = () => {
                 />
                 <Flex
                   direction="column"
-                  justifyContent="center"
+                  justifyContent="space-between"
                   alignItems="flex-end"
                 >
                   <Heading size="sm" color="orange.200" fontWeight="bold">

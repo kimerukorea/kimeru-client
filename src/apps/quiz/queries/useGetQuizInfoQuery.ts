@@ -8,7 +8,11 @@ export const useGetQuizInfoQuery = () => {
   const { query } = useRouter();
   const quizId = query.id?.toString();
 
-  return useQuery([GET_QUIZ_INFO_QUERY_KEY, quizId], () =>
-    getQuizInfo({ quizId: quizId! })
+  return useQuery(
+    [GET_QUIZ_INFO_QUERY_KEY, quizId],
+    () => getQuizInfo({ quizId: quizId! }),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 };

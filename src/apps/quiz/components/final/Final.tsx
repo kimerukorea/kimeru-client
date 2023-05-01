@@ -1,19 +1,17 @@
+import { CopyIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
   ButtonGroup,
   Divider,
   Heading,
-  Highlight,
   Portal,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import Image from "next/image";
-import { useAnswer, useCTAButton, useFinalInfo } from "./FInal.hooks";
-import { useGetQuizInfoQuery } from "../../queries";
-import { useAnswerStore } from "../../stores/answer/answer.store";
 import styled from "@emotion/styled";
-import { CopyIcon, HamburgerIcon, LinkIcon } from "@chakra-ui/icons";
+import Image from "next/image";
+import { useGetQuizInfoQuery } from "../../queries";
+import { useAnswer, useCTAButton, useFinalInfo } from "./FInal.hooks";
 
 export const Final = () => {
   const { finalInfo } = useFinalInfo();
@@ -26,13 +24,15 @@ export const Final = () => {
       <Image
         src={finalInfo.descriptionImageUrl}
         alt=""
-        width={300}
-        height={300}
+        width={200}
+        height={200}
       />
       <Text color="orange.200" fontSize="2xl">
         당신의 레벨은
       </Text>
-      <Heading color="orange.300">{finalInfo.mainTitle}</Heading>
+      <Heading color="orange.300" fontSize="2xl">
+        {finalInfo.mainTitle}
+      </Heading>
 
       <Divider />
 
@@ -40,7 +40,7 @@ export const Final = () => {
         {`정답 ${answerCount} / ${quizInfo?.questionCount}`}
       </Text>
 
-      <Text color="orange.200" fontSize="2xl">
+      <Text color="orange.200" fontSize="md" textAlign="center">
         {finalInfo.descriptionExplanation}
       </Text>
 

@@ -4,7 +4,8 @@ export const getQuizMain = async ({ quizId }: { quizId: string }) => {
   const { data } = await supabase
     .from("mainList")
     .select("*")
-    .eq("quizId", quizId);
+    .eq("quizId", quizId)
+    .order("step");
 
   return data;
 };

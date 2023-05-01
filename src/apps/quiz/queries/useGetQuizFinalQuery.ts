@@ -21,7 +21,7 @@ export const useGetQuizFinalQuery = () => {
         }
 
         const finalInfo = data.find((finalResult) => {
-          return answerCount < finalResult.maxRange;
+          return answerCount <= finalResult.maxRange;
         });
 
         if (!finalInfo) {
