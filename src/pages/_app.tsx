@@ -17,6 +17,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const client = new QueryClient();
 
@@ -48,6 +49,7 @@ const App = ({
           <ChakraProvider theme={theme}>
             <GlobalCSS font={inter.style.fontFamily} />
             <CommonLayout>
+              <Analytics />
               <Component {...pageProps} />
             </CommonLayout>
           </ChakraProvider>
