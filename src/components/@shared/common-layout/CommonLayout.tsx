@@ -5,7 +5,7 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
   return (
     <Container
       backgroundColor="gray.900"
-      height="100vh"
+      minHeight={"100vh"}
       minWidth="100vw"
       paddingTop={"60px"}
     >
