@@ -39,7 +39,9 @@ export const Question = ({ showSolution }: QuestionProps) => {
       </Heading>
 
       <VStack>
-        <Text color="orange.400">{descriptionExplanation}</Text>
+        <Text color="orange.400" whiteSpace="break-spaces">
+          {descriptionExplanation}
+        </Text>
         {descriptionImageUrl && (
           <DescriptionImage
             src={descriptionImageUrl}

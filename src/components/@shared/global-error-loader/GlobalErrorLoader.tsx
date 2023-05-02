@@ -18,7 +18,12 @@ export const GlobalErrorLoader = ({ error, reset }: GlobalErrorLoaderProps) => {
       <Text fontSize="xl" color="orange.100">
         무언가 <strong>오류</strong>가 발생했어요. 금방 해결할게요
       </Text>
-      <Text fontSize="sm" color="orange.100">
+      <Text
+        fontSize="sm"
+        color="orange.100"
+        whiteSpace="pre-wrap"
+        wordBreak="break-all"
+      >
         {error.message}
       </Text>
       <Portal>

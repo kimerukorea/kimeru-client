@@ -25,7 +25,9 @@ export const Solution = ({ hideSolution }: SolutionProps) => {
         {title}
       </Heading>
       <VStack>
-        <Text color="orange.400">{solutionExplanation}</Text>
+        <Text color="orange.400" whiteSpace="break-spaces">
+          {solutionExplanation}
+        </Text>
         {solutionImageUrl && (
           <DescriptionImage
             src={solutionImageUrl}
