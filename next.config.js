@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: ["zjiploxydrjwjnbstxib.supabase.co", "freepngimg.com"],
     formats: ["image/webp"],
+    dangerouslyAllowSVG: true,
   },
 };
 

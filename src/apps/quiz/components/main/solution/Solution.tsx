@@ -20,7 +20,7 @@ export const Solution = ({ hideSolution }: SolutionProps) => {
   const { isFinalSolution } = useFinalSolution();
 
   return (
-    <VStack gap={10}>
+    <VStack gap={10} paddingBottom="40">
       <Heading size="md" color="orange.300">
         {title}
       </Heading>

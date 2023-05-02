@@ -25,7 +25,7 @@ export const Question = ({ showSolution }: QuestionProps) => {
   const progressValue = useProgressValue();
 
   return (
-    <VStack gap={10}>
+    <VStack gap={10} paddingBottom="40">
       <Progress
         width="100%"
         colorScheme="orange"
