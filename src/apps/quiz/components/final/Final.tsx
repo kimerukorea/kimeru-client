@@ -4,10 +4,8 @@ import { CopyIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
   Divider,
-  HStack,
   Heading,
   Portal,
-  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -49,39 +47,35 @@ export const Final = () => {
         {finalInfo.descriptionExplanation}
       </Text>
 
+      {quizInfo && (
+        <Text color="orange.500" fontSize="sm" textAlign="center" mt="10px">
+          퀴즈를 푼 개발자들은 평균&nbsp;
+          <strong>{quizInfo.averageAnswerCount}</strong>
+          개를 맞추고 있습니다.
+        </Text>
+      )}
+
       <Portal>
         <BottomButtonGroup
           role="group"
           variants={bottomSlideByBottomProperty}
           {...framerMocker}
         >
-          <Stack width="100%">
-            {quizInfo && (
-              <Text color="orange.500" fontSize="sm" textAlign="center">
-                퀴즈를 푼 개발자들은 평균&nbsp;
-                <strong>{quizInfo.averageAnswerCount}</strong>
-                개를 맞추고 있습니다.
-              </Text>
-            )}
-
-            <HStack>
-              <ShadowedButton
-                rightIcon={<CopyIcon />}
-                width="full"
-                boxShadow="dark-lg"
-                onClick={handleShareButtonClick}
-              >
-                공유하기
-              </ShadowedButton>
-              <ShadowedButton
-                rightIcon={<HamburgerIcon />}
-                width="full"
-                onClick={handleOtherQuizButtonClick}
-              >
-                다른 테스트하기
-              </ShadowedButton>
-            </HStack>
-          </Stack>
+          <ShadowedButton
+            rightIcon={<CopyIcon />}
+            width="full"
+            boxShadow="dark-lg"
+            onClick={handleShareButtonClick}
+          >
+            공유하기
+          </ShadowedButton>
+          <ShadowedButton
+            rightIcon={<HamburgerIcon />}
+            width="full"
+            onClick={handleOtherQuizButtonClick}
+          >
+            다른 테스트하기
+          </ShadowedButton>
         </BottomButtonGroup>
       </Portal>
     </VStack>
