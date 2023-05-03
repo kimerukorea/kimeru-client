@@ -4,7 +4,6 @@ import { AnswerInitialState, AnswerState } from "./answer.types";
 
 const initialState: AnswerInitialState = {
   answerCount: 0,
-  averageAnswerCount: 0,
 };
 
 export const useAnswerStore = create(
@@ -17,8 +16,5 @@ export const useAnswerStore = create(
     },
 
     dispatchInitialize: () => set(initialState),
-
-    calculateAverageAnswerCount: (averageAnswerCount) =>
-      set({ averageAnswerCount }),
   }))
 );

@@ -1,7 +1,10 @@
-import { useGetQuizInfoQuery } from "@/apps/quiz/queries";
-import { useAnswerStore } from "@/apps/quiz/stores/answer/answer.store";
+import {
+  GET_QUIZ_INFO_QUERY_KEY,
+  useGetQuizInfoQuery,
+} from "@/apps/quiz/queries";
 import { useStepStore } from "@/apps/quiz/stores/step/step.store";
 import { supabase } from "@/server";
+import { QueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useAnswer } from "../../final/Final.hooks";
 import { SolutionProps } from "./Solution.types";
@@ -11,13 +14,21 @@ export const useCTAButton = ({
 }: Pick<SolutionProps, "hideSolution">) => {
   const goToNext = useStepStore((state) => state.goToNext);
   const { isFinalSolution } = useFinalSolution();
-  const { calculateParticipationStats } = useCalculateParticipationStats();
+  const { calculateParticipationStats, quizId } =
+    useCalculateParticipationStats();
 
   const handleCTAButtonClick = () => {
+    const queryClient = new QueryClient();
     hideSolution();
     goToNext();
+
     if (isFinalSolution) {
       calculateParticipationStats();
+
+      queryClient.invalidateQueries({
+        queryKey: [GET_QUIZ_INFO_QUERY_KEY, quizId],
+        exact: true,
+      });
     }
   };
 
@@ -46,9 +57,6 @@ export const useCalculateParticipationStats = () => {
   const quizId = query.id?.toString();
   const { data: quizInfo } = useGetQuizInfoQuery();
   const { answerCount } = useAnswer();
-  const { calculateAverageAnswerCount } = useAnswerStore((state) => ({
-    calculateAverageAnswerCount: state.calculateAverageAnswerCount,
-  }));
 
   const calculateParticipationStats = async () => {
     if (!quizInfo) {
@@ -63,10 +71,11 @@ export const useCalculateParticipationStats = () => {
 
       const decimalNumber = Number(average.toFixed(2));
 
-      calculateAverageAnswerCount(decimalNumber);
-
       return decimalNumber;
     };
+
+    console.log(quizInfo.averageAnswerCount);
+    console.log("mine: ", getAnswersCountAverage());
 
     // TODO 동시성 이슈 해결
     await supabase
@@ -80,5 +89,6 @@ export const useCalculateParticipationStats = () => {
 
   return {
     calculateParticipationStats,
+    quizId,
   };
 };
