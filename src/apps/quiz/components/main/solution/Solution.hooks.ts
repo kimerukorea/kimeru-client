@@ -1,8 +1,9 @@
-import { useStepStore } from "@/apps/quiz/stores/step/step.store";
-import { SolutionProps } from "./Solution.types";
 import { useGetQuizInfoQuery } from "@/apps/quiz/queries";
+import { useStepStore } from "@/apps/quiz/stores/step/step.store";
 import { supabase } from "@/server";
 import { useRouter } from "next/router";
+import { useAnswer } from "../../final/Final.hooks";
+import { SolutionProps } from "./Solution.types";
 
 export const useCTAButton = ({
   hideSolution,
@@ -43,6 +44,7 @@ export const useIncreaseParticipationCount = () => {
   const { query } = useRouter();
   const quizId = query.id?.toString();
   const { data: quizInfo } = useGetQuizInfoQuery();
+  const { answerCount } = useAnswer();
 
   const increaseParticipationCount = async () => {
     if (!quizInfo) {
