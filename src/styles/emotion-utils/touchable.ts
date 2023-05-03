@@ -9,5 +9,5 @@ import { css } from "@emotion/react";
  */
 export const touchable = css`
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);
 `;
