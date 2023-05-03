@@ -1,11 +1,10 @@
-import excellent from "@/apps/quiz/assets/json/excellent.json";
-import good from "@/apps/quiz/assets/json/good.json";
-import poor from "@/apps/quiz/assets/json/poor.json";
-import { useWebShareApi } from "@/hooks";
 import { useRouter } from "next/router";
-import { shallow } from "zustand/shallow";
 import { useGetQuizFinalQuery } from "../../queries";
 import { useAnswerStore } from "../../stores/answer/answer.store";
+import { useWebShareApi } from "@/hooks";
+import poor from "@/apps/quiz/assets/json/poor.json";
+import good from "@/apps/quiz/assets/json/good.json";
+import excellent from "@/apps/quiz/assets/json/excellent.json";
 
 export const useFinalInfo = () => {
   const { data } = useGetQuizFinalQuery();
@@ -20,7 +19,7 @@ export const useFinalInfo = () => {
 };
 
 export const useAnswer = () => {
-  const answerCount = useAnswerStore((state) => state.answerCount, shallow);
+  const answerCount = useAnswerStore((state) => state.answerCount);
 
   return {
     answerCount,

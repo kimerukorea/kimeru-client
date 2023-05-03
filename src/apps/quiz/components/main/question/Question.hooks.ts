@@ -2,15 +2,13 @@ import { useCurrentQuestion, useQuestionCount } from "@/apps/quiz/hooks";
 import { useAnswerStore } from "@/apps/quiz/stores/answer/answer.store";
 import { useStepStore } from "@/apps/quiz/stores/step/step.store";
 import { useMemo } from "react";
-import { shallow } from "zustand/shallow";
 import { QuestionProps } from "./Question.types";
 
 export const useCTAButton = ({
   showSolution,
 }: Pick<QuestionProps, "showSolution">) => {
   const increaseAnswerCount = useAnswerStore(
-    (state) => state.increaseAnswerCount,
-    shallow
+    (state) => state.increaseAnswerCount
   );
   const currentQuestion = useCurrentQuestion();
 

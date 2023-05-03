@@ -1,10 +1,10 @@
 import { PageLoader, SwitchCase } from "@/components/@shared";
-import { GlobalErrorLoader } from "@/components/@shared/global-error-loader/GlobalErrorLoader";
-import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
-import { AsyncBoundary } from "@suspensive/react";
+import { AsyncBoundary, Suspense } from "@suspensive/react";
 import { Final, Landing, Main } from "../components";
 import { useQuestionCount, useQuizInfo } from "../hooks";
 import { useStepStore } from "../stores/step/step.store";
+import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
+import { GlobalErrorLoader } from "@/components/@shared/global-error-loader/GlobalErrorLoader";
 
 export const QuizPage = () => {
   const { currentStep } = useStepStore();
