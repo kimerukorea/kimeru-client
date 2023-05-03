@@ -74,9 +74,6 @@ export const useCalculateParticipationStats = () => {
       return decimalNumber;
     };
 
-    console.log(quizInfo.averageAnswerCount);
-    console.log("mine: ", getAnswersCountAverage());
-
     // TODO 동시성 이슈 해결
     await supabase
       .from("quizList")
