@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from "@suspensive/react-query";
 import { useRouter } from "next/router";
+import { shallow } from "zustand/shallow";
 import { getQuizFinalInfo } from "../apis/getQuizFinalInfo";
 import { useAnswerStore } from "../stores/answer/answer.store";
 
@@ -8,7 +9,7 @@ const GET_QUIZ_FINAL_QUERY_KEY = "get-quiz-final";
 export const useGetQuizFinalQuery = () => {
   const { query } = useRouter();
   const quizId = query.id?.toString();
-  const answerCount = useAnswerStore((state) => state.answerCount);
+  const answerCount = useAnswerStore((state) => state.answerCount, shallow);
 
   return useSuspenseQuery(
     [GET_QUIZ_FINAL_QUERY_KEY, quizId, answerCount],

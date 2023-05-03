@@ -17,6 +17,7 @@ export const Solution = ({ hideSolution }: SolutionProps) => {
   const { title, solutionImageUrl, solutionExplanation } = useCurrentQuestion();
 
   const { handleCTAButtonClick } = useCTAButton({ hideSolution });
+
   const { isFinalSolution } = useFinalSolution();
 
   return (
