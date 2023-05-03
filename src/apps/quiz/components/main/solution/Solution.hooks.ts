@@ -77,10 +77,7 @@ export const useCalculateParticipationStats = () => {
     // TODO 동시성 이슈 해결
     await supabase
       .from("quizList")
-      .update({
-        participationCount: quizInfo.participationCount + 1,
-        averageAnswerCount: getAnswersCountAverage(),
-      })
+      .update({ participationCount: quizInfo.participationCount + 1 })
       .eq("id", quizId);
   };
 
