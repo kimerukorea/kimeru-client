@@ -3,7 +3,6 @@ import { useAnswerStore } from "@/apps/quiz/stores/answer/answer.store";
 import { useStepStore } from "@/apps/quiz/stores/step/step.store";
 import { supabase } from "@/server";
 import { useRouter } from "next/router";
-import { shallow } from "zustand/shallow";
 import { useAnswer } from "../../final/Final.hooks";
 import { SolutionProps } from "./Solution.types";
 
@@ -47,12 +46,9 @@ export const useCalculateParticipationStats = () => {
   const quizId = query.id?.toString();
   const { data: quizInfo } = useGetQuizInfoQuery();
   const { answerCount } = useAnswer();
-  const { calculateAverageAnswerCount } = useAnswerStore(
-    (state) => ({
-      calculateAverageAnswerCount: state.calculateAverageAnswerCount,
-    }),
-    shallow
-  );
+  const { calculateAverageAnswerCount } = useAnswerStore((state) => ({
+    calculateAverageAnswerCount: state.calculateAverageAnswerCount,
+  }));
 
   const calculateParticipationStats = async () => {
     if (!quizInfo) {

@@ -14,7 +14,6 @@ import {
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import { shallow } from "zustand/shallow";
 import { useGetQuizInfoQuery } from "../../queries";
 import { useAnswerStore } from "../../stores/answer/answer.store";
 import {
@@ -30,12 +29,9 @@ export const Final = () => {
   const { answerCount } = useAnswer();
   const { handleShareButtonClick, handleOtherQuizButtonClick } = useCTAButton();
   const lottieAnimationData = useFinalLottieSrc();
-  const { averageAnswerCount } = useAnswerStore(
-    (state) => ({
-      averageAnswerCount: state.averageAnswerCount,
-    }),
-    shallow
-  );
+  const { averageAnswerCount } = useAnswerStore((state) => ({
+    averageAnswerCount: state.averageAnswerCount,
+  }));
 
   return (
     <VStack>
