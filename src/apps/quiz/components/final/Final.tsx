@@ -4,25 +4,21 @@ import { CopyIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
   Divider,
-  HStack,
   Heading,
   Portal,
-  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import { shallow } from "zustand/shallow";
 import { useGetQuizInfoQuery } from "../../queries";
-import { useAnswerStore } from "../../stores/answer/answer.store";
 import {
   useAnswer,
   useCTAButton,
   useFinalInfo,
   useFinalLottieSrc,
-} from "./Final.hooks";
+} from "./FInal.hooks";
 
 export const Final = () => {
   const { finalInfo } = useFinalInfo();
@@ -30,12 +26,6 @@ export const Final = () => {
   const { answerCount } = useAnswer();
   const { handleShareButtonClick, handleOtherQuizButtonClick } = useCTAButton();
   const lottieAnimationData = useFinalLottieSrc();
-  const { averageAnswerCount } = useAnswerStore(
-    (state) => ({
-      averageAnswerCount: state.averageAnswerCount,
-    }),
-    shallow
-  );
 
   return (
     <VStack>
@@ -63,30 +53,21 @@ export const Final = () => {
           variants={bottomSlideByBottomProperty}
           {...framerMocker}
         >
-          <Stack width="100%">
-            <Text color="orange.500" fontSize="sm" textAlign="center">
-              퀴즈를 푼 개발자들은 평균 <strong>{averageAnswerCount}</strong>
-              개를 맞추고 있습니다.
-            </Text>
-
-            <HStack>
-              <ShadowedButton
-                rightIcon={<CopyIcon />}
-                width="full"
-                boxShadow="dark-lg"
-                onClick={handleShareButtonClick}
-              >
-                공유하기
-              </ShadowedButton>
-              <ShadowedButton
-                rightIcon={<HamburgerIcon />}
-                width="full"
-                onClick={handleOtherQuizButtonClick}
-              >
-                다른 테스트하기
-              </ShadowedButton>
-            </HStack>
-          </Stack>
+          <ShadowedButton
+            rightIcon={<CopyIcon />}
+            width="full"
+            boxShadow="dark-lg"
+            onClick={handleShareButtonClick}
+          >
+            공유하기
+          </ShadowedButton>
+          <ShadowedButton
+            rightIcon={<HamburgerIcon />}
+            width="full"
+            onClick={handleOtherQuizButtonClick}
+          >
+            다른 테스트하기
+          </ShadowedButton>
         </BottomButtonGroup>
       </Portal>
     </VStack>
