@@ -15,6 +15,7 @@ import {
   ListItem,
   Text,
 } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -38,7 +39,7 @@ export const QuizList = () => {
         >
           <Link href={`/quiz/${quiz.id}`}>
             <Flex justifyContent="space-between">
-              <Image
+              <StyledLogoImage
                 src={quiz.thumbnailImageUrl}
                 alt={quiz.name}
                 width={50}
@@ -68,3 +69,8 @@ export const QuizList = () => {
     </List>
   );
 };
+
+export const StyledLogoImage = styled(Image)`
+  border-radius: 4px;
+  aspect-ratio: 1;
+`;
