@@ -13,7 +13,6 @@ export interface Database {
         Row: {
           created_at: string;
           descriptionExplanation: string;
-          descriptionImageUrl: string;
           id: number;
           mainTitle: string;
           maxRange: number;
@@ -22,7 +21,6 @@ export interface Database {
         Insert: {
           created_at?: string;
           descriptionExplanation: string;
-          descriptionImageUrl: string;
           id?: number;
           mainTitle: string;
           maxRange: number;
@@ -31,7 +29,6 @@ export interface Database {
         Update: {
           created_at?: string;
           descriptionExplanation?: string;
-          descriptionImageUrl?: string;
           id?: number;
           mainTitle?: string;
           maxRange?: number;
@@ -78,6 +75,7 @@ export interface Database {
       };
       quizList: {
         Row: {
+          averageAnswerCount: number;
           created_at: string;
           description: string;
           id: number;
@@ -87,6 +85,7 @@ export interface Database {
           thumbnailImageUrl: string;
         };
         Insert: {
+          averageAnswerCount?: number;
           created_at?: string;
           description: string;
           id?: number;
@@ -96,6 +95,7 @@ export interface Database {
           thumbnailImageUrl: string;
         };
         Update: {
+          averageAnswerCount?: number;
           created_at?: string;
           description?: string;
           id?: number;
