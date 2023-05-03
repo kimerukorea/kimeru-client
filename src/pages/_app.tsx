@@ -14,10 +14,10 @@ import {
   type DehydratedState,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Analytics } from "@vercel/analytics/react";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { useState } from "react";
-import { Analytics } from "@vercel/analytics/react";
 
 const client = new QueryClient();
 

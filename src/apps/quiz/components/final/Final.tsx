@@ -14,9 +14,7 @@ import {
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import { shallow } from "zustand/shallow";
 import { useGetQuizInfoQuery } from "../../queries";
-import { useAnswerStore } from "../../stores/answer/answer.store";
 import {
   useAnswer,
   useCTAButton,
@@ -30,12 +28,6 @@ export const Final = () => {
   const { answerCount } = useAnswer();
   const { handleShareButtonClick, handleOtherQuizButtonClick } = useCTAButton();
   const lottieAnimationData = useFinalLottieSrc();
-  const { averageAnswerCount } = useAnswerStore(
-    (state) => ({
-      averageAnswerCount: state.averageAnswerCount,
-    }),
-    shallow
-  );
 
   return (
     <VStack>
@@ -64,10 +56,13 @@ export const Final = () => {
           {...framerMocker}
         >
           <Stack width="100%">
-            <Text color="orange.500" fontSize="sm" textAlign="center">
-              퀴즈를 푼 개발자들은 평균 <strong>{averageAnswerCount}</strong>
-              개를 맞추고 있습니다.
-            </Text>
+            {quizInfo && (
+              <Text color="orange.500" fontSize="sm" textAlign="center">
+                퀴즈를 푼 개발자들은 평균&nbsp;
+                <strong>{quizInfo.averageAnswerCount}</strong>
+                개를 맞추고 있습니다.
+              </Text>
+            )}
 
             <HStack>
               <ShadowedButton

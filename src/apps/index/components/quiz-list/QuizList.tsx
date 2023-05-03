@@ -4,7 +4,6 @@ import {
   framerMocker,
   staggerHalf,
 } from "@/constants/Motions";
-import { touchable } from "@/styles";
 import Spacing from "@/styles/emotion-utils/spacing/spacing";
 import { ViewIcon } from "@chakra-ui/icons";
 import {
@@ -38,7 +37,7 @@ export const QuizList = () => {
           variants={defaultSlideFadeInVariants("bottom")}
           marginY="4"
         >
-          <TouchableLink href={`/quiz/${quiz.id}`}>
+          <Link href={`/quiz/${quiz.id}`}>
             <Flex justifyContent="space-between">
               <StyledLogoImage
                 src={quiz.thumbnailImageUrl}
@@ -64,7 +63,7 @@ export const QuizList = () => {
             </Flex>
             <Spacing size={10} />
             <Divider />
-          </TouchableLink>
+          </Link>
         </ListItem>
       ))}
     </List>
@@ -74,8 +73,4 @@ export const QuizList = () => {
 export const StyledLogoImage = styled(Image)`
   border-radius: 4px;
   aspect-ratio: 1;
-`;
-
-export const TouchableLink = styled(Link)`
-  ${touchable}
 `;
