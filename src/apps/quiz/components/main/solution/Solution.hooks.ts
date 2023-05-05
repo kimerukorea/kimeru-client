@@ -55,12 +55,8 @@ export const useCalculateParticipationStats = () => {
   const { answerCount } = useAnswer();
   const queryClient = useQueryClient();
 
-  const calculateParticipationStats = useCallback(async () => {
-    if (!quizInfo) {
-      return;
-    }
-
-    const getAnswersCountAverage = () => {
+  const getAnswersCountAverage = useCallback(
+    (quizInfo: NonNullable<ReturnType<typeof useGetQuizInfoQuery>["data"]>) => {
       const average =
         (quizInfo.averageAnswerCount * quizInfo.participationCount +
           answerCount) /
@@ -69,14 +65,21 @@ export const useCalculateParticipationStats = () => {
       const decimalNumber = Number(average.toFixed(2));
 
       return decimalNumber;
-    };
+    },
+    [answerCount]
+  );
+
+  const calculateParticipationStats = useCallback(async () => {
+    if (!quizInfo) {
+      return;
+    }
 
     // TODO 동시성 이슈 해결
     const { status } = await supabase
       .from("quizList")
       .update({
         participationCount: quizInfo.participationCount + 1,
-        averageAnswerCount: getAnswersCountAverage(),
+        averageAnswerCount: getAnswersCountAverage(quizInfo),
       })
       .eq("id", quizId);
 
@@ -86,7 +89,7 @@ export const useCalculateParticipationStats = () => {
         exact: true,
       });
     }
-  }, [answerCount, queryClient, quizId, quizInfo]);
+  }, [getAnswersCountAverage, queryClient, quizId, quizInfo]);
 
   return {
     calculateParticipationStats,
