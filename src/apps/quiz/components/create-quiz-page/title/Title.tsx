@@ -1,16 +1,25 @@
 import {
+  Button,
   FormControl,
   FormLabel,
   Input,
+  Portal,
   Text,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { useInput } from "./Title.hooks";
+import { useCTAButton, useInput } from "./Title.hooks";
+import { motion } from "framer-motion";
+import styled from "@emotion/styled";
+import { bottomSlideByBottomProperty, framerMocker } from "@/constants/Motions";
+import { ChevronRightIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { FileUploadWithPreview } from "@/components/@shared";
 
 export const Title = () => {
   const { name, handleNameChange, description, handleDescriptionChange } =
     useInput();
+
+  const { handleGoMainPageButtonClick, handleNextButtonClick } = useCTAButton();
   return (
     <VStack>
       <Text color="orange.200">문제 제작을 결심해줘서 고마워요.</Text>
@@ -36,7 +45,46 @@ export const Title = () => {
             color="whiteAlpha.900"
           />
         </FormControl>
+        <FormControl isRequired>
+          <FileUploadWithPreview />
+        </FormControl>
       </VStack>
+      <Portal>
+        <BottomButtonGroup
+          role="group"
+          variants={bottomSlideByBottomProperty}
+          {...framerMocker}
+        >
+          <ShadowedButton
+            rightIcon={<ExternalLinkIcon />}
+            width="full"
+            onClick={handleGoMainPageButtonClick}
+            colorScheme="whiteAlpha"
+          >
+            메인 페이지 가기
+          </ShadowedButton>
+          <ShadowedButton
+            rightIcon={<ChevronRightIcon />}
+            width="full"
+            onClick={handleNextButtonClick}
+          >
+            다음
+          </ShadowedButton>
+        </BottomButtonGroup>
+      </Portal>
     </VStack>
   );
 };
+
+const BottomButtonGroup = styled(motion.div)`
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 40px;
+  display: flex;
+  gap: 8px;
+`;
+
+const ShadowedButton = styled(Button)`
+  box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+`;

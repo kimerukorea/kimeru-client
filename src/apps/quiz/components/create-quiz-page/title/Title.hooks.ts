@@ -1,4 +1,6 @@
+import { useCreateQuizStepStore } from "@/apps/quiz/stores/create-quiz-step/createQuizStep.store";
 import { useCreateQuizStore } from "@/apps/quiz/stores/create-quiz/createQuiz.store";
+import { useRouter } from "next/router";
 import { ChangeEventHandler } from "react";
 
 export const useInput = () => {
@@ -25,3 +27,35 @@ export const useInput = () => {
     handleDescriptionChange,
   };
 };
+
+export const useCTAButton = () => {
+  const handleGoMainPageButtonClick = useGoMainPageButton();
+  const handleNextButtonClick = useNextButton();
+
+  return {
+    handleGoMainPageButtonClick,
+    handleNextButtonClick,
+  };
+};
+
+const useGoMainPageButton = () => {
+  const { push } = useRouter();
+
+  const handleGoMainPageButtonClick = () => {
+    push("/");
+  };
+
+  return handleGoMainPageButtonClick;
+};
+
+const useNextButton = () => {
+  const { goToNext } = useCreateQuizStepStore();
+
+  const handleNextButtonClick = () => {
+    goToNext();
+  };
+
+  return handleNextButtonClick;
+};
+
+const useMakeQuizAction = () => {};

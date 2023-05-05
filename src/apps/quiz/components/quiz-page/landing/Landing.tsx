@@ -10,7 +10,7 @@ import styled from "@emotion/styled";
 import { commaizeNumber } from "@toss/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useQuizInfo } from "../../hooks";
+import { useQuizInfo } from "@/apps/quiz/hooks";
 import { useCTAButton } from "./Landing.hooks";
 
 export const Landing = () => {
