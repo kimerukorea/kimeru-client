@@ -7,6 +7,7 @@ import { HTTP_STATUS_CODE } from "@/constants/Supabase";
 import { supabase } from "@/server";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 import { useAnswer } from "../../final/Final.hooks";
 import { SolutionProps } from "./Solution.types";
 
@@ -54,7 +55,7 @@ export const useCalculateParticipationStats = () => {
   const { answerCount } = useAnswer();
   const queryClient = useQueryClient();
 
-  const calculateParticipationStats = async () => {
+  const calculateParticipationStats = useCallback(async () => {
     if (!quizInfo) {
       return;
     }
@@ -85,7 +86,7 @@ export const useCalculateParticipationStats = () => {
         exact: true,
       });
     }
-  };
+  }, [answerCount, queryClient, quizId, quizInfo]);
 
   return {
     calculateParticipationStats,
