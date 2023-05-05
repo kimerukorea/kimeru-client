@@ -1,7 +1,16 @@
 import { DownloadIcon } from "@chakra-ui/icons";
 import { Badge, Box, FormLabel, Input, InputProps } from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import Image from "next/image";
 
-export const FileUploadWithPreview = (props: InputProps) => {
+type FileUploadWithPreviewProps = {
+  image: File;
+} & InputProps;
+
+export const FileUploadWithPreview = ({
+  image,
+  ...rest
+}: FileUploadWithPreviewProps) => {
   return (
     <Box>
       <FormLabel>
@@ -9,9 +18,15 @@ export const FileUploadWithPreview = (props: InputProps) => {
           썸네일 업로드 <DownloadIcon />
         </Badge>
       </FormLabel>
+      <ThumbnailImage
+        src={URL.createObjectURL(image)}
+        alt="thumbnail"
+        width={340}
+        height={100}
+      />
       <Input
         type="file"
-        {...props}
+        {...rest}
         style={{
           display: "none",
         }}
@@ -19,3 +34,8 @@ export const FileUploadWithPreview = (props: InputProps) => {
     </Box>
   );
 };
+
+const ThumbnailImage = styled(Image)`
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+`;
