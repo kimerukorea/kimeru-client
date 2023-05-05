@@ -18,7 +18,7 @@ import {
   useCTAButton,
   useFinalInfo,
   useFinalLottieSrc,
-} from "./FInal.hooks";
+} from "./Final.hooks";
 
 export const Final = () => {
   const { finalInfo } = useFinalInfo();
