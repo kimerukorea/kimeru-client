@@ -12,6 +12,7 @@ import {
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
+import { useEffect } from "react";
 import { useGetQuizInfoQuery } from "../../queries";
 import {
   useAnswer,
@@ -22,10 +23,14 @@ import {
 
 export const Final = () => {
   const { finalInfo } = useFinalInfo();
-  const { data: quizInfo } = useGetQuizInfoQuery();
+  const { data: quizInfo, refetch: quizInfoRefetch } = useGetQuizInfoQuery();
   const { answerCount } = useAnswer();
   const { handleShareButtonClick, handleOtherQuizButtonClick } = useCTAButton();
   const lottieAnimationData = useFinalLottieSrc();
+
+  useEffect(() => {
+    quizInfoRefetch();
+  }, [quizInfoRefetch]);
 
   return (
     <VStack>

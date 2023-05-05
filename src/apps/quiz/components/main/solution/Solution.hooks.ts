@@ -18,17 +18,11 @@ export const useCTAButton = ({
     useCalculateParticipationStats();
 
   const handleCTAButtonClick = () => {
-    const queryClient = new QueryClient();
     hideSolution();
     goToNext();
 
     if (isFinalSolution) {
       calculateParticipationStats();
-
-      queryClient.invalidateQueries({
-        queryKey: [GET_QUIZ_INFO_QUERY_KEY, quizId],
-        exact: true,
-      });
     }
   };
 
@@ -74,16 +68,25 @@ export const useCalculateParticipationStats = () => {
       return decimalNumber;
     };
 
+    // 평균 값 확인용
     console.log("getAnswersCountAverage: ", getAnswersCountAverage());
 
     // TODO 동시성 이슈 해결
-    await supabase
+    const { status } = await supabase
       .from("quizList")
       .update({
         participationCount: quizInfo.participationCount + 1,
         averageAnswerCount: getAnswersCountAverage(),
       })
       .eq("id", quizId);
+
+    const queryClient = new QueryClient();
+
+    if (status === 204) {
+      queryClient.invalidateQueries({
+        queryKey: [GET_QUIZ_INFO_QUERY_KEY],
+      });
+    }
   };
 
   return {
