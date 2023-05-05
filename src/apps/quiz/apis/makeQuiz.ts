@@ -4,8 +4,10 @@ import { Database } from "@/types/supabase";
 export const makeQuiz = async (
   params: Database["public"]["Tables"]["quizList"]["Insert"]
 ) => {
-  const data = await supabase.from("quizList").insert([{ ...params }]);
-  console.log(data);
+  const data = await supabase
+    .from("quizList")
+    .insert([{ ...params }])
+    .select();
 
-  return data;
+  return data.data?.[0];
 };

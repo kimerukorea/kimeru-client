@@ -25,11 +25,8 @@ export const Title = () => {
     handleThumbnailImageChange,
   } = useInput();
 
-  const {
-    handleGoMainPageButtonClick,
-    handleNextButtonClick,
-    makeQuizIsLoading,
-  } = useCTAButton();
+  const { handleGoMainPageButtonClick, handleNextButtonClick, isLoading } =
+    useCTAButton();
 
   return (
     <VStack>
@@ -81,7 +78,7 @@ export const Title = () => {
             rightIcon={<ChevronRightIcon />}
             width="full"
             onClick={handleNextButtonClick}
-            isLoading={makeQuizIsLoading}
+            isLoading={isLoading}
           >
             다음
           </ShadowedButton>

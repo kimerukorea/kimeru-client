@@ -1,7 +1,8 @@
 import { useMakeQuizMutation } from "@/apps/quiz/mutations/useMakeQuizMutation";
 import { useCreateQuizStepStore } from "@/apps/quiz/stores/create-quiz-step/createQuizStep.store";
 import { useCreateQuizStore } from "@/apps/quiz/stores/create-quiz/createQuiz.store";
-import { supabase } from "@/server";
+import { PATH } from "@/constants/Supabase";
+import { useInsertImageMutation } from "@/mutations/useInsertImage";
 import { useRouter } from "next/router";
 import { ChangeEventHandler } from "react";
 
@@ -44,12 +45,12 @@ export const useInput = () => {
 
 export const useCTAButton = () => {
   const handleGoMainPageButtonClick = useGoMainPageButton();
-  const { handleNextButtonClick, makeQuizIsLoading } = useNextButton();
+  const { handleNextButtonClick, isLoading } = useNextButton();
 
   return {
     handleGoMainPageButtonClick,
     handleNextButtonClick,
-    makeQuizIsLoading,
+    isLoading,
   };
 };
 
@@ -65,37 +66,50 @@ const useGoMainPageButton = () => {
 
 const useNextButton = () => {
   const { goToNext } = useCreateQuizStepStore();
-  const { makeQuizAction, makeQuizIsLoading } = useMakeQuizAction();
+  const { makeQuizAction, isLoading } = useMakeQuizAction();
 
   const handleNextButtonClick = async () => {
     await makeQuizAction();
     goToNext();
   };
 
-  return { handleNextButtonClick, makeQuizIsLoading };
+  return { handleNextButtonClick, isLoading };
 };
 
 const useMakeQuizAction = () => {
+  const {
+    mutateAsync: insertImageMutateAsync,
+    isLoading: insertImageIsLoading,
+  } = useInsertImageMutation();
   const { mutateAsync: makeQuizMutateAsync, isLoading: makeQuizIsLoading } =
     useMakeQuizMutation();
   const quizMetaData = useCreateQuizStore((state) => state.quizMetaData);
 
-  const { name, description } = quizMetaData;
+  const { name, description, thumbnailImageFile } = quizMetaData;
 
   const makeQuizAction = async () => {
-    const { data, error } = await supabase.storage
-      .from("image")
-      .upload("public/avatar1.png", avatarFile, {
-        cacheControl: "3600",
-        upsert: false,
-      });
+    if (!thumbnailImageFile) {
+      return;
+    }
+
+    const uuid = new Date().getMilliseconds();
+    const imagePath = `public/image/public/${uuid}_${thumbnailImageFile.name}`;
+    const thumbnailImageUrl = `${PATH}/storage/v1/object/${imagePath}`;
+
+    await insertImageMutateAsync({
+      path: imagePath,
+      fileBody: thumbnailImageFile,
+    });
 
     await makeQuizMutateAsync({
       name,
       description,
-      thumbnailImageUrl: "a",
+      thumbnailImageUrl,
     });
   };
 
-  return { makeQuizAction, makeQuizIsLoading };
+  return {
+    makeQuizAction,
+    isLoading: insertImageIsLoading || makeQuizIsLoading,
+  };
 };

@@ -5,17 +5,19 @@ import Image from "next/image";
 
 type FileUploadWithPreviewProps = {
   image: File | null;
+  badgeText?: string;
 } & InputProps;
 
 export const FileUploadWithPreview = ({
   image,
+  badgeText = "썸네일 업로드",
   ...rest
 }: FileUploadWithPreviewProps) => {
   return (
     <Box>
       <FormLabel>
         <Badge fontSize="md" py="1" px="3">
-          썸네일 업로드 <DownloadIcon />
+          {badgeText} <DownloadIcon />
         </Badge>
       </FormLabel>
       {image ? (
