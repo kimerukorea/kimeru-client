@@ -1,0 +1,1 @@
+export const DEFAULT_QUESTION_LENGTH = 10;

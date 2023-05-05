@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { useGetQuizFinalQuery } from "../../queries";
-import { useAnswerStore } from "../../stores/answer/answer.store";
+import { useGetQuizFinalQuery } from "../../../queries";
+import { useAnswerStore } from "../../../stores/answer/answer.store";
 import { useWebShareApi } from "@/hooks";
 import poor from "@/apps/quiz/assets/json/poor.json";
 import good from "@/apps/quiz/assets/json/good.json";

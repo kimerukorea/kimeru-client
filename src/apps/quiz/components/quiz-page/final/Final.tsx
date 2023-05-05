@@ -12,7 +12,7 @@ import {
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import { useGetQuizInfoQuery } from "../../queries";
+import { useGetQuizInfoQuery } from "../../../queries";
 import {
   useAnswer,
   useCTAButton,
