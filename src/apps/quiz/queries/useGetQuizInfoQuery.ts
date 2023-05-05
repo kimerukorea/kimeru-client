@@ -11,7 +11,7 @@ export const useGetQuizInfoQuery = () => {
   return useQuery({
     queryKey: [GET_QUIZ_INFO_QUERY_KEY, quizId],
     queryFn: () => getQuizInfo({ quizId: quizId! }),
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     staleTime: 1000 * 6,
   });
 };
