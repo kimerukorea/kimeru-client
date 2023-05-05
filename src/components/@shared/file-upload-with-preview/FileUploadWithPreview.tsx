@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 
 type FileUploadWithPreviewProps = {
-  image: File;
+  image: File | null;
 } & InputProps;
 
 export const FileUploadWithPreview = ({
@@ -18,12 +18,14 @@ export const FileUploadWithPreview = ({
           썸네일 업로드 <DownloadIcon />
         </Badge>
       </FormLabel>
-      <ThumbnailImage
-        src={URL.createObjectURL(image)}
-        alt="thumbnail"
-        width={340}
-        height={100}
-      />
+      {image ? (
+        <ThumbnailImage
+          src={URL.createObjectURL(image)}
+          alt="thumbnail"
+          width={340}
+          height={100}
+        />
+      ) : null}
       <Input
         type="file"
         {...rest}

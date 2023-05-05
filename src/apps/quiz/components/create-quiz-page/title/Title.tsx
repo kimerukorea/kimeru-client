@@ -16,10 +16,21 @@ import { ChevronRightIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { FileUploadWithPreview } from "@/components/@shared";
 
 export const Title = () => {
-  const { name, handleNameChange, description, handleDescriptionChange } =
-    useInput();
+  const {
+    name,
+    handleNameChange,
+    description,
+    handleDescriptionChange,
+    thumbnailImageFile,
+    handleThumbnailImageChange,
+  } = useInput();
 
-  const { handleGoMainPageButtonClick, handleNextButtonClick } = useCTAButton();
+  const {
+    handleGoMainPageButtonClick,
+    handleNextButtonClick,
+    makeQuizIsLoading,
+  } = useCTAButton();
+
   return (
     <VStack>
       <Text color="orange.200">문제 제작을 결심해줘서 고마워요.</Text>
@@ -46,7 +57,10 @@ export const Title = () => {
           />
         </FormControl>
         <FormControl isRequired>
-          <FileUploadWithPreview />
+          <FileUploadWithPreview
+            image={thumbnailImageFile}
+            onChange={handleThumbnailImageChange}
+          />
         </FormControl>
       </VStack>
       <Portal>
@@ -67,6 +81,7 @@ export const Title = () => {
             rightIcon={<ChevronRightIcon />}
             width="full"
             onClick={handleNextButtonClick}
+            isLoading={makeQuizIsLoading}
           >
             다음
           </ShadowedButton>

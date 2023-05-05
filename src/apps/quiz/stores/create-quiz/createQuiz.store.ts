@@ -8,6 +8,7 @@ const initialState: CreateQuizInitialState = {
     name: "",
     description: "",
     thumbnailImageUrl: "",
+    thumbnailImageFile: null,
   },
   mainQuestionList: [],
   finalList: [],
@@ -16,7 +17,7 @@ const initialState: CreateQuizInitialState = {
 export const useCreateQuizStore = create(
   immer<CreateQuizState>((set) => ({
     ...initialState,
-    dispatchMetaDataText: (key, value) => {
+    dispatchMetaData: (key, value) => {
       set((state) => {
         state.quizMetaData[key] = value;
       });

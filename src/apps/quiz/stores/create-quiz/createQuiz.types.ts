@@ -1,6 +1,8 @@
 import { Database } from "@/types/supabase";
 
-type MetaData = Database["public"]["Tables"]["quizList"]["Insert"];
+type MetaData = Database["public"]["Tables"]["quizList"]["Insert"] & {
+  thumbnailImageFile: File | null;
+};
 
 type MainQuestion = Omit<
   Database["public"]["Tables"]["mainList"]["Insert"],
@@ -18,8 +20,11 @@ export interface CreateQuizInitialState {
 }
 
 export interface CreateQuizState extends CreateQuizInitialState {
-  dispatchMetaDataText: <
-    T extends keyof Pick<MetaData, "name" | "description">
+  dispatchMetaData: <
+    T extends keyof Pick<
+      MetaData,
+      "name" | "description" | "thumbnailImageFile"
+    >
   >(
     key: T,
     value: MetaData[T]
