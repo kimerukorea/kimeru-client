@@ -1,10 +1,6 @@
-import {
-  GET_QUIZ_INFO_QUERY_KEY,
-  useGetQuizInfoQuery,
-} from "@/apps/quiz/queries";
+import { useGetQuizInfoQuery } from "@/apps/quiz/queries";
 import { useStepStore } from "@/apps/quiz/stores/step/step.store";
 import { supabase } from "@/server";
-import { QueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useAnswer } from "../../final/Final.hooks";
 import { SolutionProps } from "./Solution.types";
@@ -49,7 +45,7 @@ export const useFinalSolution = () => {
 export const useCalculateParticipationStats = () => {
   const { query } = useRouter();
   const quizId = query.id?.toString();
-  const { data: quizInfo } = useGetQuizInfoQuery();
+  const { data: quizInfo, refetch: quizInfoRefetch } = useGetQuizInfoQuery();
   const { answerCount } = useAnswer();
 
   const calculateParticipationStats = async () => {
@@ -68,9 +64,6 @@ export const useCalculateParticipationStats = () => {
       return decimalNumber;
     };
 
-    // 평균 값 확인용
-    console.log("getAnswersCountAverage: ", getAnswersCountAverage());
-
     // TODO 동시성 이슈 해결
     const { status } = await supabase
       .from("quizList")
@@ -80,12 +73,8 @@ export const useCalculateParticipationStats = () => {
       })
       .eq("id", quizId);
 
-    const queryClient = new QueryClient();
-
     if (status === 204) {
-      queryClient.invalidateQueries({
-        queryKey: [GET_QUIZ_INFO_QUERY_KEY],
-      });
+      quizInfoRefetch();
     }
   };
 
