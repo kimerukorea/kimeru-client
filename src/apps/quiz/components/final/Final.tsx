@@ -47,6 +47,14 @@ export const Final = () => {
         {finalInfo.descriptionExplanation}
       </Text>
 
+      {quizInfo && (
+        <Text color="orange.500" fontSize="sm" textAlign="center" mt="10px">
+          퀴즈를 푼 개발자들은 평균&nbsp;
+          <strong>{quizInfo.averageAnswerCount}</strong>
+          개를 맞추고 있습니다.
+        </Text>
+      )}
+
       <Portal>
         <BottomButtonGroup
           role="group"
