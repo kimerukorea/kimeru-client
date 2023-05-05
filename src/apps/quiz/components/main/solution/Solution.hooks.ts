@@ -1,5 +1,6 @@
 import { useGetQuizInfoQuery } from "@/apps/quiz/queries";
 import { useStepStore } from "@/apps/quiz/stores/step/step.store";
+import { HTTP_STATUS_CODE } from "@/constants/Supabase";
 import { supabase } from "@/server";
 import { useRouter } from "next/router";
 import { useAnswer } from "../../final/Final.hooks";
@@ -73,7 +74,7 @@ export const useCalculateParticipationStats = () => {
       })
       .eq("id", quizId);
 
-    if (status === 204) {
+    if (status === HTTP_STATUS_CODE.success) {
       quizInfoRefetch();
     }
   };
