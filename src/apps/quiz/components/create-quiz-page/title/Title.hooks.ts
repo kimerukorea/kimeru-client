@@ -5,7 +5,7 @@ import { PATH } from "@/constants/Supabase";
 import { useInsertImageMutation } from "@/mutations/useInsertImage";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, useCallback } from "react";
 
 export const useInput = () => {
   const [quizMetaData, dispatchMetaData] = useCreateQuizStore((state) => [
@@ -24,15 +24,17 @@ export const useInput = () => {
     dispatchMetaData("description", e.currentTarget.value);
   };
 
-  const handleThumbnailImageChange: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    if (!e.target.files) {
-      dispatchMetaData("thumbnailImageFile", null);
-      return;
-    }
-    dispatchMetaData("thumbnailImageFile", e.target.files[0]);
-  };
+  const handleThumbnailImageChange: ChangeEventHandler<HTMLInputElement> =
+    useCallback(
+      (e) => {
+        if (!e.target.files) {
+          dispatchMetaData("thumbnailImageFile", null);
+          return;
+        }
+        dispatchMetaData("thumbnailImageFile", e.target.files[0]);
+      },
+      [dispatchMetaData]
+    );
 
   return {
     name,
