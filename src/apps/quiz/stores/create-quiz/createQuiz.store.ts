@@ -1,8 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { CreateQuizInitialState, CreateQuizState } from "./createQuiz.types";
-import { useState } from "react";
 import { useCreateQuizStepStore } from "../create-quiz-step/createQuizStep.store";
+import { CreateQuizInitialState, CreateQuizState } from "./createQuiz.types";
 
 const initialState: CreateQuizInitialState = {
   quizId: null,
@@ -42,6 +41,11 @@ export const useCreateQuizStore = create(
         state.mainQuestionList[
           useCreateQuizStepStore.getState().currentStep - 1
         ][key] = value;
+      });
+    },
+    dispatchMainQuestionWithStep: (key, value, step) => {
+      set((state) => {
+        state.mainQuestionList[step - 1][key] = value;
       });
     },
   }))

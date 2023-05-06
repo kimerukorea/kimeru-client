@@ -37,6 +37,7 @@ export const Question = () => {
     handleNextButtonClick,
     previousButtonText,
     nextButtonText,
+    isLoading,
   } = useCTAButton();
 
   return (
@@ -115,6 +116,7 @@ export const Question = () => {
             rightIcon={<ArrowForwardIcon />}
             width="full"
             onClick={handleNextButtonClick}
+            isLoading={isLoading}
           >
             {nextButtonText}
           </ShadowedButton>

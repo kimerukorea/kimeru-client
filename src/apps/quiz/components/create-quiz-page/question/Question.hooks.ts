@@ -1,8 +1,13 @@
+import { useMakeQuestionListMutation } from "@/apps/quiz/mutations/useMakeQuestionListMutation";
 import { DEFAULT_QUESTION_LENGTH } from "@/apps/quiz/pages/CreateQuizPage.constants";
 import { useCreateQuizStepStore } from "@/apps/quiz/stores/create-quiz-step/createQuizStep.store";
 import { useCreateQuizStore } from "@/apps/quiz/stores/create-quiz/createQuiz.store";
+import { PATH } from "@/constants/Supabase";
+import { useInsertImageMutation } from "@/mutations/useInsertImage";
 import { useToast } from "@chakra-ui/react";
+import { omit } from "@toss/utils";
 import { ChangeEventHandler, useMemo } from "react";
+import { flushSync } from "react-dom";
 
 export const useProgressValue = () => {
   const currentStep = useCreateQuizStepStore((state) => state.currentStep);
@@ -85,13 +90,15 @@ export const useCTAButton = () => {
     (state) => [state.mainQuestionList, state.dispatchMainQuestion]
   );
 
+  const { makeQuestionListAction, isLoading } = useMakeQuestionListAction();
+
   const { title, descriptionExplanation, solutionExplanation } =
     mainQuestionList[currentStep - 1];
 
   const handlePreviousButtonClick = () => {
     goToPrevious();
   };
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
     if (!title || !descriptionExplanation || !solutionExplanation) {
       toast({
         title: "필수 항목을 작성해주세요.",
@@ -104,6 +111,10 @@ export const useCTAButton = () => {
       });
 
       return;
+    }
+
+    if (currentStep === DEFAULT_QUESTION_LENGTH) {
+      await makeQuestionListAction();
     }
 
     goToNext();
@@ -127,5 +138,88 @@ export const useCTAButton = () => {
     handleNextButtonClick,
     previousButtonText,
     nextButtonText,
+    isLoading,
+  };
+};
+
+const useMakeQuestionListAction = () => {
+  const [mainQuestionList, quizId, dispatchMainQuestionWithStep] =
+    useCreateQuizStore((state) => [
+      state.mainQuestionList,
+      state.quizId,
+      state.dispatchMainQuestionWithStep,
+    ]);
+
+  const {
+    mutateAsync: insertImageMutateAsync,
+    isLoading: insertImageIsLoading,
+  } = useInsertImageMutation();
+
+  const {
+    mutateAsync: makeQuestionListMutateAsync,
+    isLoading: makeQuestionListIsLoading,
+  } = useMakeQuestionListMutation();
+
+  const makeQuestionListAction = async () => {
+    await Promise.all(
+      mainQuestionList.map(async (mainQuestion) => {
+        if (mainQuestion.descriptionImageFile) {
+          const descriptionImagePath =
+            `public/quiz_${mainQuestion.step}/q${mainQuestion.step}_description`.replaceAll(
+              " ",
+              ""
+            );
+          const descriptionImageUrl = `${PATH}/storage/v1/object/${descriptionImagePath}`;
+
+          await insertImageMutateAsync({
+            path: descriptionImageUrl,
+            fileBody: mainQuestion.descriptionImageFile,
+          });
+
+          dispatchMainQuestionWithStep(
+            "descriptionImageUrl",
+            descriptionImageUrl,
+            mainQuestion.step
+          );
+        }
+
+        if (mainQuestion.solutionImageFile) {
+          const solutionImagePath =
+            `public/quiz_${mainQuestion.step}/q${mainQuestion.step}_solution`.replaceAll(
+              " ",
+              ""
+            );
+          const solutionImageUrl = `${PATH}/storage/v1/object/${solutionImagePath}`;
+
+          await insertImageMutateAsync({
+            path: solutionImagePath,
+            fileBody: mainQuestion.solutionImageFile,
+          });
+
+          dispatchMainQuestionWithStep(
+            "solutionImageUrl",
+            solutionImageUrl,
+            mainQuestion.step
+          );
+        }
+      })
+    );
+
+    await makeQuestionListMutateAsync(
+      useCreateQuizStore
+        .getState()
+        .mainQuestionList.map((mainQuestion) => ({
+          ...mainQuestion,
+          quizId: quizId!,
+        }))
+        .map((mainQuestion) =>
+          omit(mainQuestion, ["descriptionImageFile", "solutionImageFile"])
+        )
+    );
+  };
+
+  return {
+    makeQuestionListAction,
+    isLoading: makeQuestionListIsLoading || insertImageIsLoading,
   };
 };

@@ -6,7 +6,7 @@ type MetaData = Database["public"]["Tables"]["quizList"]["Insert"] & {
 
 type MainQuestion = Omit<
   Database["public"]["Tables"]["mainList"]["Insert"],
-  "descriptionImageUrl" | "solutionImageUrl" | "quizId"
+  "quizId"
 > & {
   descriptionImageFile: File | null;
   solutionImageFile: File | null;
@@ -34,5 +34,10 @@ export interface CreateQuizState extends CreateQuizInitialState {
   dispatchMainQuestion: <T extends keyof MainQuestion>(
     key: T,
     value: MainQuestion[T]
+  ) => void;
+  dispatchMainQuestionWithStep: <T extends keyof MainQuestion>(
+    key: T,
+    value: MainQuestion[T],
+    step: number
   ) => void;
 }
