@@ -3,6 +3,7 @@ import { useCreateQuizStepStore } from "@/apps/quiz/stores/create-quiz-step/crea
 import { useCreateQuizStore } from "@/apps/quiz/stores/create-quiz/createQuiz.store";
 import { PATH } from "@/constants/Supabase";
 import { useInsertImageMutation } from "@/mutations/useInsertImage";
+import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ChangeEventHandler } from "react";
 
@@ -69,14 +70,18 @@ const useNextButton = () => {
   const { makeQuizAction, isLoading } = useMakeQuizAction();
 
   const handleNextButtonClick = async () => {
-    await makeQuizAction();
-    goToNext();
+    const result = await makeQuizAction();
+
+    if (result) {
+      goToNext();
+    }
   };
 
   return { handleNextButtonClick, isLoading };
 };
 
 const useMakeQuizAction = () => {
+  const toast = useToast();
   const {
     mutateAsync: insertImageMutateAsync,
     isLoading: insertImageIsLoading,
@@ -88,12 +93,21 @@ const useMakeQuizAction = () => {
   const { name, description, thumbnailImageFile } = quizMetaData;
 
   const makeQuizAction = async () => {
-    if (!thumbnailImageFile) {
-      return;
+    if (!thumbnailImageFile || !name || !description) {
+      toast({
+        title: "필수 항목을 작성해주세요.",
+        description: "필수 항목은 빨간색 * 표시가 있어요.",
+        status: "error",
+        duration: 2000,
+        containerStyle: {
+          width: "100vw",
+        },
+      });
+      return false;
     }
 
     const uuid = new Date().getMilliseconds();
-    const imagePath = `public/image/public/${uuid}_${thumbnailImageFile.name}`;
+    const imagePath = `public/${uuid}_${thumbnailImageFile.name}`;
     const thumbnailImageUrl = `${PATH}/storage/v1/object/${imagePath}`;
 
     await insertImageMutateAsync({
@@ -106,6 +120,8 @@ const useMakeQuizAction = () => {
       description,
       thumbnailImageUrl,
     });
+
+    return true;
   };
 
   return {

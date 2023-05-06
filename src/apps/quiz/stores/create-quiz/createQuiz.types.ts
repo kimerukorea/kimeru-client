@@ -13,11 +13,15 @@ type MainQuestion = Omit<
   quizId?: number;
 };
 
+type Final = Omit<
+  Database["public"]["Tables"]["finalList"]["Insert"],
+  "quizId"
+> & { quizId?: number };
 export interface CreateQuizInitialState {
   quizId: number | null;
   quizMetaData: MetaData;
   mainQuestionList: MainQuestion[];
-  finalList: Database["public"]["Tables"]["finalList"]["Insert"][];
+  finalList: Final[];
 }
 
 export interface CreateQuizState extends CreateQuizInitialState {
@@ -39,5 +43,10 @@ export interface CreateQuizState extends CreateQuizInitialState {
     key: T,
     value: MainQuestion[T],
     step: number
+  ) => void;
+  dispatchFinal: <T extends keyof Final>(
+    key: T,
+    value: Final[T],
+    index: number
   ) => void;
 }

@@ -7,7 +7,6 @@ import { useInsertImageMutation } from "@/mutations/useInsertImage";
 import { useToast } from "@chakra-ui/react";
 import { omit } from "@toss/utils";
 import { ChangeEventHandler, useMemo } from "react";
-import { flushSync } from "react-dom";
 
 export const useProgressValue = () => {
   const currentStep = useCreateQuizStepStore((state) => state.currentStep);
@@ -32,6 +31,7 @@ export const useInput = () => {
     solutionExplanation,
     descriptionImageFile,
     solutionImageFile,
+    answerValue,
   } = mainQuestionList[currentStep - 1];
 
   const handleTitleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -65,6 +65,9 @@ export const useInput = () => {
     }
     dispatchMainQuestion("solutionImageFile", e.target.files[0]);
   };
+  const handleAnswerValueChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    dispatchMainQuestion("answerValue", e.currentTarget.checked);
+  };
 
   return {
     title,
@@ -77,6 +80,8 @@ export const useInput = () => {
     handleSolutionChange,
     solutionImageFile,
     handleSolutionImageChange,
+    answerValue,
+    handleAnswerValueChange,
   };
 };
 
@@ -86,9 +91,10 @@ export const useCTAButton = () => {
     (state) => [state.currentStep, state.goToPrevious, state.goToNext]
   );
 
-  const [mainQuestionList, dispatchMainQuestion] = useCreateQuizStore(
-    (state) => [state.mainQuestionList, state.dispatchMainQuestion]
-  );
+  const [mainQuestionList, quizId] = useCreateQuizStore((state) => [
+    state.mainQuestionList,
+    state.quizId,
+  ]);
 
   const { makeQuestionListAction, isLoading } = useMakeQuestionListAction();
 
@@ -165,7 +171,7 @@ const useMakeQuestionListAction = () => {
       mainQuestionList.map(async (mainQuestion) => {
         if (mainQuestion.descriptionImageFile) {
           const descriptionImagePath =
-            `public/quiz_${mainQuestion.step}/q${mainQuestion.step}_description`.replaceAll(
+            `public/quiz_${quizId}/q${mainQuestion.step}_description`.replaceAll(
               " ",
               ""
             );
