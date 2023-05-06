@@ -128,6 +128,35 @@ export interface Database {
           thumbnailImageUrl?: string;
         };
       };
+      surveyList: {
+        Row: {
+          created_at: string | null;
+          description: string;
+          id: number;
+          participationCount: number;
+          questionCount: number;
+          thumbnailImageUrl: string;
+          title: string;
+        };
+        Insert: {
+          created_at?: string | null;
+          description: string;
+          id?: number;
+          participationCount?: number;
+          questionCount?: number;
+          thumbnailImageUrl: string;
+          title: string;
+        };
+        Update: {
+          created_at?: string | null;
+          description?: string;
+          id?: number;
+          participationCount?: number;
+          questionCount?: number;
+          thumbnailImageUrl?: string;
+          title?: string;
+        };
+      };
     };
     Views: {
       [_ in never]: never;
