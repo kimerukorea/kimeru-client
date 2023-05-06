@@ -1,4 +1,4 @@
-import { ChatIcon, EmailIcon } from "@chakra-ui/icons";
+import { AddIcon, ChatIcon, EmailIcon } from "@chakra-ui/icons";
 import {
   Flex,
   HStack,
@@ -13,6 +13,7 @@ import { InquiryModal } from "./inquiry-modal/InquiryModal";
 export const Footer = () => {
   useDisclosure;
   const {
+    handleAddButtonClick,
     handleInquiryButtonClick,
     handleMailButtonClick,
     handleGithubButtonClick,
@@ -29,6 +30,13 @@ export const Footer = () => {
         © {new Date().getFullYear()} kimeru
       </Text>
       <Flex gap={2}>
+        <IconButton
+          aria-label="email"
+          fontSize="18px"
+          icon={<AddIcon />}
+          size="sm"
+          onClick={handleAddButtonClick}
+        />
         <IconButton
           aria-label="email"
           fontSize="18px"
