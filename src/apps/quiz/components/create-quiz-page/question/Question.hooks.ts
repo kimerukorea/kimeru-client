@@ -6,7 +6,7 @@ import { PATH } from "@/constants/Supabase";
 import { useInsertImageMutation } from "@/mutations/useInsertImage";
 import { useToast } from "@chakra-ui/react";
 import { omit } from "@toss/utils";
-import { ChangeEventHandler, useMemo } from "react";
+import { ChangeEventHandler, useCallback, useMemo } from "react";
 
 export const useProgressValue = () => {
   const currentStep = useCreateQuizStepStore((state) => state.currentStep);
@@ -47,24 +47,29 @@ export const useInput = () => {
     dispatchMainQuestion("solutionExplanation", e.currentTarget.value);
   };
 
-  const handleDescriptionImageChange: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    if (!e.target.files) {
-      dispatchMainQuestion("descriptionImageFile", null);
-      return;
-    }
-    dispatchMainQuestion("descriptionImageFile", e.target.files[0]);
-  };
-  const handleSolutionImageChange: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    if (!e.target.files) {
-      dispatchMainQuestion("solutionImageFile", null);
-      return;
-    }
-    dispatchMainQuestion("solutionImageFile", e.target.files[0]);
-  };
+  const handleDescriptionImageChange: ChangeEventHandler<HTMLInputElement> =
+    useCallback(
+      (e) => {
+        if (!e.target.files) {
+          dispatchMainQuestion("descriptionImageFile", null);
+          return;
+        }
+        dispatchMainQuestion("descriptionImageFile", e.target.files[0]);
+      },
+      [dispatchMainQuestion]
+    );
+  const handleSolutionImageChange: ChangeEventHandler<HTMLInputElement> =
+    useCallback(
+      (e) => {
+        if (!e.target.files) {
+          dispatchMainQuestion("solutionImageFile", null);
+          return;
+        }
+        dispatchMainQuestion("solutionImageFile", e.target.files[0]);
+      },
+      [dispatchMainQuestion]
+    );
+
   const handleAnswerValueChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     dispatchMainQuestion("answerValue", e.currentTarget.checked);
   };
