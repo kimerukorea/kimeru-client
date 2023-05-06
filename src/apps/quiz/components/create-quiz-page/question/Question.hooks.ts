@@ -171,7 +171,7 @@ const useMakeQuestionListAction = () => {
       mainQuestionList.map(async (mainQuestion) => {
         if (mainQuestion.descriptionImageFile) {
           const descriptionImagePath =
-            `public/quiz_${quizId}/q${mainQuestion.step}_description`.replaceAll(
+            `quiz_${quizId}/q${mainQuestion.step}_description`.replaceAll(
               " ",
               ""
             );
@@ -191,7 +191,7 @@ const useMakeQuestionListAction = () => {
 
         if (mainQuestion.solutionImageFile) {
           const solutionImagePath =
-            `public/quiz_${mainQuestion.step}/q${mainQuestion.step}_solution`.replaceAll(
+            `quiz_${mainQuestion.step}/q${mainQuestion.step}_solution`.replaceAll(
               " ",
               ""
             );

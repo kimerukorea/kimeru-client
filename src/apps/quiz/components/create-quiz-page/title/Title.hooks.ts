@@ -107,7 +107,7 @@ const useMakeQuizAction = () => {
     }
 
     const uuid = new Date().getMilliseconds();
-    const imagePath = `public/${uuid}_${thumbnailImageFile.name}`;
+    const imagePath = `publicQuizLogo/${uuid}_${thumbnailImageFile.name}`;
     const thumbnailImageUrl = `${PATH}/storage/v1/object/${imagePath}`;
 
     await insertImageMutateAsync({
