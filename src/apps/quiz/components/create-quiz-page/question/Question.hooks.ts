@@ -175,10 +175,10 @@ const useMakeQuestionListAction = () => {
               " ",
               ""
             );
-          const descriptionImageUrl = `${PATH}/storage/v1/object/${descriptionImagePath}`;
+          const descriptionImageUrl = `${PATH}/storage/v1/object/public/image/${descriptionImagePath}`;
 
           await insertImageMutateAsync({
-            path: descriptionImageUrl,
+            path: descriptionImagePath,
             fileBody: mainQuestion.descriptionImageFile,
           });
 
@@ -195,7 +195,7 @@ const useMakeQuestionListAction = () => {
               " ",
               ""
             );
-          const solutionImageUrl = `${PATH}/storage/v1/object/${solutionImagePath}`;
+          const solutionImageUrl = `${PATH}/storage/v1/object/public/image/${solutionImagePath}`;
 
           await insertImageMutateAsync({
             path: solutionImagePath,
