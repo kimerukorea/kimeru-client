@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import React from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 
 export const PageLoader = () => {

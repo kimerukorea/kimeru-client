@@ -3,16 +3,14 @@ import { GlobalErrorLoader } from "@/components/@shared/global-error-loader/Glob
 import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
 import { AsyncBoundary } from "@suspensive/react";
 import { Landing } from "../components/landing";
-import { Main } from "../components/main";
+import { Final, Main } from "../components/main";
 import { useQuestionCount, useSurveyInfo } from "../hooks";
-import { useAnswersStore } from "../stores/answers";
 import { useStepStore } from "../stores/step";
 
 export const SurveyPage = () => {
   const { currentStep } = useStepStore();
   const { questionCount } = useQuestionCount();
   const { surveyInfo } = useSurveyInfo();
-  const answers = useAnswersStore((state) => state.answers);
 
   return (
     <>
@@ -42,7 +40,7 @@ export const SurveyPage = () => {
                 <GlobalErrorLoader {...errorProps} />
               )}
             >
-              <div>{JSON.stringify(answers)}</div>
+              <Final />
             </AsyncBoundary.CSROnly>
           ),
         }}
