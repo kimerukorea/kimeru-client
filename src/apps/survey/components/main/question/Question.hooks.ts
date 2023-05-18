@@ -1,4 +1,8 @@
-import { useCurrentQuestion, useQuestionCount } from "@/apps/survey/hooks";
+import {
+  useCurrentQuestion,
+  useGetSurveyId,
+  useQuestionCount,
+} from "@/apps/survey/hooks";
 import {
   useSurveyFinalListQuery,
   useSurveyListByIdQuery,
@@ -7,7 +11,6 @@ import { useAnswersStore } from "@/apps/survey/stores";
 import { HTTP_STATUS_CODE } from "@/constants/Supabase";
 import { supabase } from "@/server";
 import { useStepStore } from "@/stores";
-import { useRouter } from "next/router";
 import { useMemo } from "react";
 
 export const useCTAButton = () => {
@@ -17,23 +20,23 @@ export const useCTAButton = () => {
   }));
 
   const currentQuestion = useCurrentQuestion();
-  const { questionCount } = useQuestionCount();
-
   const { answers } = currentQuestion;
 
-  const { query } = useRouter();
+  const { questionCount } = useQuestionCount();
+
   const { data: finalInfo } = useSurveyFinalListQuery(
     questionCount === currentStep
   );
-  const surveyId = query.id?.toString();
+  const { surveyId } = useGetSurveyId();
   const { myAnswers, setAnswers } = useAnswersStore((state) => ({
     myAnswers: state.answers,
     setAnswers: state.setAnswers,
   }));
   const { data: surveyInfo } = useSurveyListByIdQuery();
 
-  const handleButtonClick = async (index: number) => {
+  const handleButtonClick = (index: number) => async () => {
     if (answers) {
+      console.log(index);
       setAnswers(index);
 
       if (questionCount === currentStep && finalInfo) {

@@ -1,13 +1,10 @@
 import { useCurrentQuestion } from "@/apps/survey/hooks";
-import { Button, ButtonGroup, Progress, Text, VStack } from "@chakra-ui/react";
-import styled from "@emotion/styled";
-import Image from "next/image";
+import { Button, Progress, Text, VStack } from "@chakra-ui/react";
 import { useCTAButton, useProgressValue } from "./Question.hooks";
 
 export const Question = () => {
   const { question, answers } = useCurrentQuestion();
   const { handleButtonClick } = useCTAButton();
-
   const progressValue = useProgressValue();
 
   return (
@@ -31,9 +28,7 @@ export const Question = () => {
             variant="ghost"
             color="orange.300"
             colorScheme="whiteAlpha"
-            onClick={() => {
-              handleButtonClick(index);
-            }}
+            onClick={handleButtonClick(index)}
           >
             {answer}
           </Button>
@@ -42,19 +37,3 @@ export const Question = () => {
     </VStack>
   );
 };
-
-const DescriptionImage = styled(Image)`
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-`;
-
-const BottomButtonGroup = styled(ButtonGroup)`
-  position: fixed;
-  left: 20px;
-  right: 20px;
-  bottom: 40px;
-`;
-
-const ShadowedButton = styled(Button)`
-  box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
-`;
