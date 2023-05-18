@@ -3,7 +3,7 @@ import {
   useSurveyFinalListQuery,
   useSurveyListByIdQuery,
 } from "@/apps/survey/queries";
-import { useAnswersStore } from "@/apps/survey/stores/answers";
+import { useAnswersStore } from "@/apps/survey/stores";
 import { HTTP_STATUS_CODE } from "@/constants/Supabase";
 import { supabase } from "@/server";
 import { useStepStore } from "@/stores";
