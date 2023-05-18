@@ -43,7 +43,9 @@ export const useGetSurvey = () => {
 
 export const useCTAButton = () => {
   const { onShareLink } = useShareLink();
-  const { onMoveOtherContents } = useMoveOtherContents("/survey-list");
+  const { onMoveOtherContents } = useMoveOtherContents({
+    path: "/survey-list",
+  });
 
   return {
     onShareLink,

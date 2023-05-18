@@ -27,7 +27,9 @@ export const useAnswer = () => {
 
 export const useCTAButton = () => {
   const { onShareLink } = useShareLink();
-  const { onMoveOtherContents } = useMoveOtherContents("/");
+  const { onMoveOtherContents } = useMoveOtherContents({
+    path: "/",
+  });
 
   return {
     onShareLink,

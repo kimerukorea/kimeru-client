@@ -27,21 +27,26 @@ export const Landing = () => {
         <Heading size="lg" color="orange.200">
           {surveyListById.title}
         </Heading>
+
         <Text size="lg" color="orange.200">
           {surveyListById.description}
         </Text>
       </VStack>
+
       <Image
         src={surveyListById.thumbnailImageUrl}
         alt=""
         width={200}
         height={200}
       />
+
       <Text color="whiteAlpha.900">
         현재 총 {commaizeNumber(surveyListById.participationCount)} 명이
         참여했습니다.
       </Text>
+
       <Spacing size={40} />
+
       <Portal>
         <BottomButtonGroup
           role="group"
