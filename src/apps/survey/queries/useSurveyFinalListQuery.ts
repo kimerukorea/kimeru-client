@@ -9,7 +9,7 @@ export const useSurveyFinalListQuery = (isFinalQuestion: boolean) => {
 
   return useQuery({
     queryKey: [GET_SURVEY_FINAL_LIST_QUERY_KEY, surveyId],
-    queryFn: () => getSurveyFinalList({ surveyId: surveyId! }),
+    queryFn: () => getSurveyFinalList({ surveyId }),
     refetchOnWindowFocus: true,
     staleTime: 1000 * 6,
     enabled: isFinalQuestion,

@@ -9,7 +9,7 @@ export const useSurveyMainListQuery = () => {
 
   return useSuspenseQuery(
     [GET_SURVEY_MAIN_LIST_QUERY_KEY, surveyId],
-    () => getSurveyMainList({ surveyId: surveyId! }),
+    () => getSurveyMainList({ surveyId }),
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60,
