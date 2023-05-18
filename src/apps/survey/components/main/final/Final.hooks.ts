@@ -3,8 +3,7 @@ import {
   useSurveyListByIdQuery,
   useSurveyMainListQuery,
 } from "@/apps/survey/queries";
-import { useShareLink } from "@/hooks";
-import { useMoveOtherContents } from "@/hooks/useMoveOtherContents";
+import { useMoveOtherContents, useShareLink } from "@/hooks";
 import { useState } from "react";
 import { ChartDataStore } from "./Final.types";
 

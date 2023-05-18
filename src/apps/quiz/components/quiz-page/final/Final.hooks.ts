@@ -1,8 +1,7 @@
 import excellent from "@/apps/quiz/assets/json/excellent.json";
 import good from "@/apps/quiz/assets/json/good.json";
 import poor from "@/apps/quiz/assets/json/poor.json";
-import { useShareLink } from "@/hooks";
-import { useMoveOtherContents } from "@/hooks/useMoveOtherContents";
+import { useMoveOtherContents, useShareLink } from "@/hooks";
 import { useGetQuizFinalQuery } from "../../../queries";
 import { useAnswerStore } from "../../../stores/answer/answer.store";
 
