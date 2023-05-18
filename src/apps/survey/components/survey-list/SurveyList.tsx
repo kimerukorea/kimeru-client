@@ -1,4 +1,3 @@
-import { useGetQuizListQuery } from "@/apps/index/queries/useGetQuizListQuery";
 import {
   defaultSlideFadeInVariants,
   framerMocker,
@@ -19,7 +18,7 @@ import {
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useGetSurveyListQuery } from "../../queries/useGetSurveyListQuery";
+import { useGetSurveyListQuery } from "../../queries";
 
 export const SurveyList = () => {
   const { surveyList } = useGetSurveyListQuery();

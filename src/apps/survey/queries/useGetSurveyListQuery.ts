@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getSurveyList } from "../apis/getSurveyList";
+import { getSurveyList } from "../apis";
 
 export const GET_SURVEY_LIST_QUERY_KEY = "get-survey-list";
 

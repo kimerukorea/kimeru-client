@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@suspensive/react-query";
 import { useRouter } from "next/router";
-import { getSurveyMain } from "../apis/getSurveyMain";
+import { getSurveyMain } from "../apis";
 
 export const GET_SURVEY_MAIN_QUERY_KEY = "get-survey-main";
 

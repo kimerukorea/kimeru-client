@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { getSurveyInfo } from "../apis/getSurveyInfo";
+import { getSurveyInfo } from "../apis";
 
 export const GET_SURVEY_INFO_QUERY_KEY = "get-survey-info";
 
