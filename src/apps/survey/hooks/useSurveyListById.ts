@@ -1,7 +1,7 @@
 import { useSurveyListByIdQuery } from "../queries";
 
-export const useSurveyInfo = () => {
+export const useSurveyListById = () => {
   const { data } = useSurveyListByIdQuery();
 
-  return { surveyInfo: data! };
+  return { surveyListById: data! };
 };

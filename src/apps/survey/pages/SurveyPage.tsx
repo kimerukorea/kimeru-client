@@ -4,20 +4,20 @@ import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
 import { AsyncBoundary } from "@suspensive/react";
 import { Landing } from "../components/landing";
 import { Final, Main } from "../components/main";
-import { useQuestionCount, useSurveyInfo } from "../hooks";
+import { useQuestionCount, useSurveyListById } from "../hooks";
 import { useStepStore } from "../stores/step";
 
 export const SurveyPage = () => {
   const { currentStep } = useStepStore();
   const { questionCount } = useQuestionCount();
-  const { surveyInfo } = useSurveyInfo();
+  const { surveyListById } = useSurveyListById();
 
   return (
     <>
       <OpenGraph
-        title={surveyInfo.title}
-        description={surveyInfo.description}
-        imageUrl={surveyInfo.thumbnailImageUrl}
+        title={surveyListById.title}
+        description={surveyListById.description}
+        imageUrl={surveyListById.thumbnailImageUrl}
       />
       <SwitchCase
         value={`${currentStep}`}

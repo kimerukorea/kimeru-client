@@ -1,9 +1,9 @@
-import { useSurveyInfo } from "./useSurveyInfo";
+import { useSurveyListById } from "./useSurveyListById";
 
 export const useQuestionCount = () => {
-  const { surveyInfo } = useSurveyInfo();
+  const { surveyListById } = useSurveyListById();
 
   return {
-    questionCount: surveyInfo?.questionCount,
+    questionCount: surveyListById?.questionCount,
   };
 };

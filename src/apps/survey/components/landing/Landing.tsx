@@ -10,11 +10,11 @@ import styled from "@emotion/styled";
 import { commaizeNumber } from "@toss/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useSurveyInfo } from "../../hooks";
+import { useSurveyListById } from "../../hooks";
 import { useCTAButton } from "./Landing.hooks";
 
 export const Landing = () => {
-  const { surveyInfo } = useSurveyInfo();
+  const { surveyListById } = useSurveyListById();
   const { handleGoMainPageButtonClick, handleStartButtonClick } =
     useCTAButton();
 
@@ -26,20 +26,20 @@ export const Landing = () => {
         {...framerMocker}
       >
         <Heading size="lg" color="orange.200">
-          {surveyInfo.title}
+          {surveyListById.title}
         </Heading>
         <Text size="lg" color="orange.200">
-          {surveyInfo.description}
+          {surveyListById.description}
         </Text>
       </VStack>
       <Image
-        src={surveyInfo.thumbnailImageUrl}
+        src={surveyListById.thumbnailImageUrl}
         alt=""
         width={200}
         height={200}
       />
       <Text color="whiteAlpha.900">
-        현재 총 {commaizeNumber(surveyInfo.participationCount)} 명이
+        현재 총 {commaizeNumber(surveyListById.participationCount)} 명이
         참여했습니다.
       </Text>
       <Spacing size={40} />

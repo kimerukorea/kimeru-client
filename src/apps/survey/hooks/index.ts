@@ -1,4 +1,4 @@
 export * from "./useCurrentQuestion";
 export * from "./useGetSurveyId";
 export * from "./useQuestionCount";
-export * from "./useSurveyInfo";
+export * from "./useSurveyListById";
