@@ -1,5 +1,5 @@
+import { useStepStore } from "@/stores";
 import { useGetQuizMainQuery } from "../queries/useGetQuizMainQuery";
-import { useStepStore } from "../stores/step/step.store";
 
 export const useCurrentQuestion = () => {
   const currentStep = useStepStore((state) => state.currentStep);

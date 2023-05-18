@@ -1,5 +1,5 @@
+import { useStepStore } from "@/stores";
 import { useSurveyMainListQuery } from "../queries/useSurveyMainListQuery";
-import { useStepStore } from "../stores/step";
 
 export const useCurrentQuestion = () => {
   const currentStep = useStepStore((state) => state.currentStep);

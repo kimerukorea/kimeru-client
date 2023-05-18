@@ -2,9 +2,9 @@ import {
   GET_QUIZ_INFO_QUERY_KEY,
   useGetQuizInfoQuery,
 } from "@/apps/quiz/queries";
-import { useStepStore } from "@/apps/quiz/stores/step/step.store";
 import { HTTP_STATUS_CODE } from "@/constants/Supabase";
 import { supabase } from "@/server";
+import { useStepStore } from "@/stores";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useCallback } from "react";

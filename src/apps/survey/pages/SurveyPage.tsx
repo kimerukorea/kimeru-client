@@ -1,10 +1,10 @@
 import { SwitchCase } from "@/components/@shared";
 import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
+import { useStepStore } from "@/stores";
 import { AsyncBoundaryFallback } from "../components/common";
 import { Landing } from "../components/landing";
 import { Final, Main } from "../components/main";
 import { useQuestionCount, useSurveyListById } from "../hooks";
-import { useStepStore } from "../stores/step";
 
 export const SurveyPage = () => {
   const { currentStep } = useStepStore();

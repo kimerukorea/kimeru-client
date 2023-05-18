@@ -4,9 +4,9 @@ import {
   useSurveyListByIdQuery,
 } from "@/apps/survey/queries";
 import { useAnswersStore } from "@/apps/survey/stores/answers";
-import { useStepStore } from "@/apps/survey/stores/step";
 import { HTTP_STATUS_CODE } from "@/constants/Supabase";
 import { supabase } from "@/server";
+import { useStepStore } from "@/stores";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 

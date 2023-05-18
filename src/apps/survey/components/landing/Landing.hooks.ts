@@ -1,5 +1,5 @@
+import { useStepStore } from "@/stores";
 import { useRouter } from "next/router";
-import { useStepStore } from "../../stores/step";
 
 export const useCTAButton = () => {
   const handleGoMainPageButtonClick = useGoMainPageButton();

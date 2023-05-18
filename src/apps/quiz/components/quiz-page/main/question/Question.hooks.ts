@@ -1,6 +1,6 @@
 import { useCurrentQuestion, useQuestionCount } from "@/apps/quiz/hooks";
 import { useAnswerStore } from "@/apps/quiz/stores/answer/answer.store";
-import { useStepStore } from "@/apps/quiz/stores/step/step.store";
+import { useStepStore } from "@/stores";
 import { useMemo } from "react";
 import { QuestionProps } from "./Question.types";
 
