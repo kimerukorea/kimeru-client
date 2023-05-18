@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["chakra", "kimeru", "supabase", "tanstack"]
+  "cSpell.words": [
+    "chakra",
+    "immer",
+    "kimeru",
+    "supabase",
+    "tanstack",
+    "zustand"
+  ]
 }
