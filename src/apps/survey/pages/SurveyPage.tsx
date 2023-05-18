@@ -1,7 +1,6 @@
-import { PageLoader, SwitchCase } from "@/components/@shared";
-import { GlobalErrorLoader } from "@/components/@shared/global-error-loader/GlobalErrorLoader";
+import { SwitchCase } from "@/components/@shared";
 import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
-import { AsyncBoundary } from "@suspensive/react";
+import { AsyncBoundaryFallback } from "../components/common";
 import { Landing } from "../components/landing";
 import { Final, Main } from "../components/main";
 import { useQuestionCount, useSurveyListById } from "../hooks";
@@ -19,29 +18,20 @@ export const SurveyPage = () => {
         description={surveyListById.description}
         imageUrl={surveyListById.thumbnailImageUrl}
       />
+
       <SwitchCase
-        value={`${currentStep}`}
+        value={currentStep.toString()}
         defaultComponent={
-          <AsyncBoundary.CSROnly
-            pendingFallback={<PageLoader />}
-            rejectedFallback={(errorProps) => (
-              <GlobalErrorLoader {...errorProps} />
-            )}
-          >
+          <AsyncBoundaryFallback>
             <Main />
-          </AsyncBoundary.CSROnly>
+          </AsyncBoundaryFallback>
         }
         caseBy={{
           0: <Landing />,
           [questionCount + 1]: (
-            <AsyncBoundary.CSROnly
-              pendingFallback={<PageLoader />}
-              rejectedFallback={(errorProps) => (
-                <GlobalErrorLoader {...errorProps} />
-              )}
-            >
+            <AsyncBoundaryFallback>
               <Final />
-            </AsyncBoundary.CSROnly>
+            </AsyncBoundaryFallback>
           ),
         }}
       />
