@@ -1,6 +1,6 @@
 import { supabase } from "@/server";
 
-export const getSurveyFinalInfo = async ({
+export const getSurveyFinalList = async ({
   surveyId,
 }: {
   surveyId: string;
