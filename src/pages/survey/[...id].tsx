@@ -1,6 +1,6 @@
 import { useQuestionCount } from "@/apps/survey/hooks";
 import { SurveyPage } from "@/apps/survey/pages/SurveyPage";
-import { GET_SURVEY_INFO_QUERY_KEY } from "@/apps/survey/queries";
+import { GET_SURVEY_LIST_BY_ID_QUERY_KEY } from "@/apps/survey/queries";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
 
   const fetchGetSurveyInfoQuery = queryClient.fetchQuery(
-    [GET_SURVEY_INFO_QUERY_KEY, surveyId],
+    [GET_SURVEY_LIST_BY_ID_QUERY_KEY, surveyId],
     async () => {
       const { data } = await supabase
         .from("surveyList")
