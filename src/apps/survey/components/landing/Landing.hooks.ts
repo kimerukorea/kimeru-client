@@ -1,32 +1,22 @@
+import { useMoveOtherContents } from "@/hooks";
 import { useStepStore } from "@/stores";
-import { useRouter } from "next/router";
 
 export const useCTAButton = () => {
-  const handleGoMainPageButtonClick = useGoMainPageButton();
-  const handleStartButtonClick = useStartButton();
+  const { onMoveOtherContents } = useMoveOtherContents("/survey-list");
+  const onStartSurvey = useStartButton();
 
   return {
-    handleGoMainPageButtonClick,
-    handleStartButtonClick,
+    onMoveOtherContents,
+    onStartSurvey,
   };
-};
-
-const useGoMainPageButton = () => {
-  const { push } = useRouter();
-
-  const handleGoMainPageButtonClick = () => {
-    push("/survey-list");
-  };
-
-  return handleGoMainPageButtonClick;
 };
 
 const useStartButton = () => {
   const { goToNext } = useStepStore();
 
-  const handleStartButtonClick = () => {
+  const onStartSurvey = () => {
     goToNext();
   };
 
-  return handleStartButtonClick;
+  return onStartSurvey;
 };
