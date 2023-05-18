@@ -1,10 +1,10 @@
-import { useRouter } from "next/router";
+import excellent from "@/apps/quiz/assets/json/excellent.json";
+import good from "@/apps/quiz/assets/json/good.json";
+import poor from "@/apps/quiz/assets/json/poor.json";
+import { useShareLink } from "@/hooks";
+import { useMoveOtherContents } from "@/hooks/useMoveOtherContents";
 import { useGetQuizFinalQuery } from "../../../queries";
 import { useAnswerStore } from "../../../stores/answer/answer.store";
-import { useWebShareApi } from "@/hooks";
-import poor from "@/apps/quiz/assets/json/poor.json";
-import good from "@/apps/quiz/assets/json/good.json";
-import excellent from "@/apps/quiz/assets/json/excellent.json";
 
 export const useFinalInfo = () => {
   const { data } = useGetQuizFinalQuery();
@@ -27,35 +27,13 @@ export const useAnswer = () => {
 };
 
 export const useCTAButton = () => {
-  const handleShareButtonClick = useShare();
-  const handleOtherQuizButtonClick = useOtherQuiz();
+  const { onShareLink } = useShareLink();
+  const { onMoveOtherContents } = useMoveOtherContents("/");
 
   return {
-    handleShareButtonClick,
-    handleOtherQuizButtonClick,
+    onShareLink,
+    onMoveOtherContents,
   };
-};
-
-export const useShare = () => {
-  const { share } = useWebShareApi();
-
-  const handleShareButtonClick = () => {
-    share({
-      url: window.location.href,
-    });
-  };
-
-  return handleShareButtonClick;
-};
-
-export const useOtherQuiz = () => {
-  const { replace } = useRouter();
-
-  const handleOtherQuizButtonClick = () => {
-    replace("/");
-  };
-
-  return handleOtherQuizButtonClick;
 };
 
 export const useFinalLottieSrc = () => {

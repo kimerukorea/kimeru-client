@@ -22,7 +22,7 @@ import { useCTAButton, useGetSurvey } from "./Final.hooks";
 export const Final = () => {
   const { convertData, surveyMain } = useGetSurvey();
 
-  const { handleShareButtonClick, handleOtherQuizButtonClick } = useCTAButton();
+  const { onMoveOtherContents, onShareLink } = useCTAButton();
 
   return (
     <VStack backgroundColor="white">
@@ -78,14 +78,14 @@ export const Final = () => {
           rightIcon={<CopyIcon />}
           width="full"
           boxShadow="dark-lg"
-          onClick={handleShareButtonClick}
+          onClick={onShareLink}
         >
           공유하기
         </ShadowedButton>
         <ShadowedButton
           rightIcon={<HamburgerIcon />}
           width="full"
-          onClick={handleOtherQuizButtonClick}
+          onClick={onMoveOtherContents}
         >
           다른 테스트하기
         </ShadowedButton>

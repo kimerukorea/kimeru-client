@@ -3,8 +3,8 @@ import {
   useSurveyListByIdQuery,
   useSurveyMainListQuery,
 } from "@/apps/survey/queries";
-import { useWebShareApi } from "@/hooks";
-import { useRouter } from "next/router";
+import { useShareLink } from "@/hooks";
+import { useMoveOtherContents } from "@/hooks/useMoveOtherContents";
 import { useState } from "react";
 import { ChartDataStore } from "./Final.types";
 
@@ -43,33 +43,11 @@ export const useGetSurvey = () => {
 };
 
 export const useCTAButton = () => {
-  const handleShareButtonClick = useShare();
-  const handleOtherQuizButtonClick = useOtherQuiz();
+  const { onShareLink } = useShareLink();
+  const { onMoveOtherContents } = useMoveOtherContents("/survey-list");
 
   return {
-    handleShareButtonClick,
-    handleOtherQuizButtonClick,
+    onShareLink,
+    onMoveOtherContents,
   };
-};
-
-export const useShare = () => {
-  const { share } = useWebShareApi();
-
-  const handleShareButtonClick = () => {
-    share({
-      url: window.location.href,
-    });
-  };
-
-  return handleShareButtonClick;
-};
-
-export const useOtherQuiz = () => {
-  const { replace } = useRouter();
-
-  const handleOtherQuizButtonClick = () => {
-    replace("/survey-list");
-  };
-
-  return handleOtherQuizButtonClick;
 };
