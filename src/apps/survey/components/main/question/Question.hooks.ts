@@ -1,7 +1,7 @@
 import { useCurrentQuestion, useQuestionCount } from "@/apps/survey/hooks";
 import {
-  useGetSurveyFinalInfoQuery,
-  useGetSurveyInfoQuery,
+  useSurveyFinalListQuery,
+  useSurveyListByIdQuery,
 } from "@/apps/survey/queries";
 import { useAnswersStore } from "@/apps/survey/stores/answers";
 import { useStepStore } from "@/apps/survey/stores/step";
@@ -22,7 +22,7 @@ export const useCTAButton = () => {
   const { answers } = currentQuestion;
 
   const { query } = useRouter();
-  const { data: finalInfo } = useGetSurveyFinalInfoQuery(
+  const { data: finalInfo } = useSurveyFinalListQuery(
     questionCount === currentStep
   );
   const surveyId = query.id?.toString();
@@ -30,7 +30,7 @@ export const useCTAButton = () => {
     myAnswers: state.answers,
     setAnswers: state.setAnswers,
   }));
-  const { data: surveyInfo } = useGetSurveyInfoQuery();
+  const { data: surveyInfo } = useSurveyListByIdQuery();
 
   const handleButtonClick = async (index: number) => {
     if (answers) {

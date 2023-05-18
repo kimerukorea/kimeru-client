@@ -1,7 +1,7 @@
 import {
-  useGetSurveyFinalInfoQuery,
-  useGetSurveyInfoQuery,
-  useGetSurveyMainQuery,
+  useSurveyFinalListQuery,
+  useSurveyListByIdQuery,
+  useSurveyMainListQuery,
 } from "@/apps/survey/queries";
 import { useWebShareApi } from "@/hooks";
 import { useRouter } from "next/router";
@@ -9,9 +9,9 @@ import { useState } from "react";
 import { ChartDataStore } from "./Final.types";
 
 export const useGetSurvey = () => {
-  const { data: surveyMain } = useGetSurveyMainQuery();
-  const { data: surveyFinalInfo } = useGetSurveyFinalInfoQuery(true);
-  const { data: surveyInfo } = useGetSurveyInfoQuery();
+  const { data: surveyMain } = useSurveyMainListQuery();
+  const { data: surveyFinalInfo } = useSurveyFinalListQuery(true);
+  const { data: surveyInfo } = useSurveyListByIdQuery();
   const [convertData, _] = useState(() => {
     const store: ChartDataStore[] = [];
 
