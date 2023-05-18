@@ -1,17 +1,6 @@
 import { bottomSlideByBottomProperty, framerMocker } from "@/constants/Motions";
-import { size } from "@/styles";
 import { CopyIcon, HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Button,
-  Divider,
-  Heading,
-  Portal,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import styled from "@emotion/styled";
-import { motion } from "framer-motion";
-import Lottie from "lottie-react";
+import { Divider, Heading, Portal, Text, VStack } from "@chakra-ui/react";
 import { useGetQuizInfoQuery } from "../../../queries";
 import {
   useAnswer,
@@ -19,6 +8,11 @@ import {
   useFinalInfo,
   useFinalLottieSrc,
 } from "./Final.hooks";
+import {
+  BottomButtonGroup,
+  LottieAnimation,
+  ShadowedButton,
+} from "./Final.styles";
 
 export const Final = () => {
   const { finalInfo } = useFinalInfo();
@@ -81,23 +75,3 @@ export const Final = () => {
     </VStack>
   );
 };
-
-const BottomButtonGroup = styled(motion.div)`
-  position: fixed;
-  left: 20px;
-  right: 20px;
-  bottom: 40px;
-  display: flex;
-  gap: 8px;
-`;
-
-const ShadowedButton = styled(Button)`
-  box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
-`;
-
-const LottieAnimation = styled(Lottie)`
-  ${size({
-    width: 200,
-    height: 200,
-  })}
-`;
