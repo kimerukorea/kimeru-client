@@ -6,7 +6,7 @@ import { Landing } from "../components/landing";
 import { Final, Main } from "../components/main";
 import { useQuestionCount, useSurveyListById } from "../hooks";
 
-export const SurveyPage = () => {
+export const SurveyByIdPage = () => {
   const { currentStep } = useStepStore();
   const { questionCount } = useQuestionCount();
   const { surveyListById } = useSurveyListById();

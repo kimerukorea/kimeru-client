@@ -1,5 +1,5 @@
-import { SurveyListPage } from "@/apps/survey/pages/SurveyListPage";
-import { GET_SURVEY_LIST_QUERY_KEY } from "@/apps/survey/queries/useSurveyListQuery";
+import { SurveyListPage } from "@/apps/survey/pages";
+import { GET_SURVEY_LIST_QUERY_KEY } from "@/apps/survey/queries";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
