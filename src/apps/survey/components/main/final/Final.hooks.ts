@@ -8,15 +8,15 @@ import { useState } from "react";
 import { ChartDataStore } from "./Final.types";
 
 export const useGetSurvey = () => {
-  const { data: surveyMain } = useSurveyMainListQuery();
-  const { data: surveyFinalInfo } = useSurveyFinalListQuery(true);
-  const { data: surveyInfo } = useSurveyListByIdQuery();
-  const [convertData, _] = useState(() => {
+  const { data: surveyMainList } = useSurveyMainListQuery();
+  const { data: surveyFinalList } = useSurveyFinalListQuery(true);
+  const { data: surveyListById } = useSurveyListByIdQuery();
+  const [convertFetchDataToChartData, _] = useState(() => {
     const store: ChartDataStore[] = [];
 
-    if (!surveyFinalInfo || !surveyInfo) return store;
+    if (!surveyFinalList || !surveyListById) return store;
 
-    surveyFinalInfo.statistics.forEach((stat) => {
+    surveyFinalList.statistics.forEach((stat) => {
       const statOfKeys = Object.keys(stat);
       const newStore: ChartDataStore = [];
 
@@ -24,7 +24,7 @@ export const useGetSurvey = () => {
         newStore.push({
           name: key,
           비율: Number(
-            ((stat[key] / surveyInfo.participationCount) * 100).toFixed(2)
+            ((stat[key] / surveyListById.participationCount) * 100).toFixed(2)
           ),
         });
       });
@@ -36,8 +36,8 @@ export const useGetSurvey = () => {
   });
 
   return {
-    convertData,
-    surveyMain,
+    convertFetchDataToChartData,
+    surveyMainList,
   };
 };
 

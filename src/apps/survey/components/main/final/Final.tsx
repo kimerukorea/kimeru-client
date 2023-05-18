@@ -21,15 +21,14 @@ import {
 } from "./Final.styles";
 
 export const Final = () => {
-  const { convertData, surveyMain } = useGetSurvey();
-
+  const { convertFetchDataToChartData, surveyMainList } = useGetSurvey();
   const { onMoveOtherContents, onShareLink } = useCTAButton();
 
   return (
     <VStack backgroundColor="white">
       <LottieAnimation loop autoplay animationData={stats} />
 
-      {surveyMain?.map((item, index) => (
+      {surveyMainList?.map((item, index) => (
         <VStack key={item.step}>
           <Text color="orange.400" fontSize="sm">
             {item.question}
@@ -38,7 +37,7 @@ export const Final = () => {
           <Box width="300px" height="200px">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={convertData[index]}
+                data={convertFetchDataToChartData[index]}
                 margin={{
                   top: 5,
                   right: 50,
@@ -57,7 +56,7 @@ export const Final = () => {
                 />
                 <Tooltip />
                 <Bar dataKey="비율" fill={palette[index]} barSize={20}>
-                  {convertData[index].map((item) => (
+                  {convertFetchDataToChartData[index].map((item) => (
                     <Cell
                       key={item.name}
                       fill={palette[Math.floor(Math.random() * 10)]}
