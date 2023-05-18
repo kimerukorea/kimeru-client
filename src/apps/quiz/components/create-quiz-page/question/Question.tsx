@@ -1,3 +1,4 @@
+import { useCreateQuizStepStore } from "@/apps/quiz/stores/create-quiz-step/createQuizStep.store";
 import { FileUploadWithPreview } from "@/components/@shared";
 import { bottomSlideByBottomProperty, framerMocker } from "@/constants/Motions";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
@@ -5,9 +6,11 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Heading,
   Input,
   Portal,
   Progress,
+  Switch,
   Text,
   Textarea,
   VStack,
@@ -17,6 +20,8 @@ import { motion } from "framer-motion";
 import { useCTAButton, useInput, useProgressValue } from "./Question.hooks";
 
 export const Question = () => {
+  const currentStep = useCreateQuizStepStore((state) => state.currentStep);
+
   const progressValue = useProgressValue();
 
   const {
@@ -30,6 +35,8 @@ export const Question = () => {
     handleSolutionChange,
     solutionImageFile,
     handleSolutionImageChange,
+    answerValue,
+    handleAnswerValueChange,
   } = useInput();
 
   const {
@@ -48,7 +55,11 @@ export const Question = () => {
         size="xs"
         hasStripe
         value={progressValue}
+        mb="4"
       />
+      <Heading color="whiteAlpha.900" size="md">
+        <strong>{currentStep}</strong>번 문제에요
+      </Heading>
       <Text color="orange.200">문제는 의문형으로 작성해주세요.</Text>
       <Text color="orange.200">정답은 자세할수록 좋아요.</Text>
 
@@ -78,6 +89,18 @@ export const Question = () => {
             image={descriptionImageFile}
             onChange={handleDescriptionImageChange}
             badgeText="문제에 연관된 사진을 올려주세요."
+          />
+        </FormControl>
+
+        <FormControl display="flex" alignItems="center" isRequired>
+          <FormLabel htmlFor="answerValue" mb="0" color="whiteAlpha.900">
+            문제의 설명이 참인가요?
+          </FormLabel>
+          <Switch
+            id="answerValue"
+            colorScheme="orange"
+            isChecked={answerValue}
+            onChange={handleAnswerValueChange}
           />
         </FormControl>
 

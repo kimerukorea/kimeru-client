@@ -6,8 +6,7 @@ import { PATH } from "@/constants/Supabase";
 import { useInsertImageMutation } from "@/mutations/useInsertImage";
 import { useToast } from "@chakra-ui/react";
 import { omit } from "@toss/utils";
-import { ChangeEventHandler, useMemo } from "react";
-import { flushSync } from "react-dom";
+import { ChangeEventHandler, useCallback, useMemo } from "react";
 
 export const useProgressValue = () => {
   const currentStep = useCreateQuizStepStore((state) => state.currentStep);
@@ -32,6 +31,7 @@ export const useInput = () => {
     solutionExplanation,
     descriptionImageFile,
     solutionImageFile,
+    answerValue,
   } = mainQuestionList[currentStep - 1];
 
   const handleTitleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -47,23 +47,31 @@ export const useInput = () => {
     dispatchMainQuestion("solutionExplanation", e.currentTarget.value);
   };
 
-  const handleDescriptionImageChange: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    if (!e.target.files) {
-      dispatchMainQuestion("descriptionImageFile", null);
-      return;
-    }
-    dispatchMainQuestion("descriptionImageFile", e.target.files[0]);
-  };
-  const handleSolutionImageChange: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    if (!e.target.files) {
-      dispatchMainQuestion("solutionImageFile", null);
-      return;
-    }
-    dispatchMainQuestion("solutionImageFile", e.target.files[0]);
+  const handleDescriptionImageChange: ChangeEventHandler<HTMLInputElement> =
+    useCallback(
+      (e) => {
+        if (!e.target.files) {
+          dispatchMainQuestion("descriptionImageFile", null);
+          return;
+        }
+        dispatchMainQuestion("descriptionImageFile", e.target.files[0]);
+      },
+      [dispatchMainQuestion]
+    );
+  const handleSolutionImageChange: ChangeEventHandler<HTMLInputElement> =
+    useCallback(
+      (e) => {
+        if (!e.target.files) {
+          dispatchMainQuestion("solutionImageFile", null);
+          return;
+        }
+        dispatchMainQuestion("solutionImageFile", e.target.files[0]);
+      },
+      [dispatchMainQuestion]
+    );
+
+  const handleAnswerValueChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    dispatchMainQuestion("answerValue", e.currentTarget.checked);
   };
 
   return {
@@ -77,6 +85,8 @@ export const useInput = () => {
     handleSolutionChange,
     solutionImageFile,
     handleSolutionImageChange,
+    answerValue,
+    handleAnswerValueChange,
   };
 };
 
@@ -86,9 +96,10 @@ export const useCTAButton = () => {
     (state) => [state.currentStep, state.goToPrevious, state.goToNext]
   );
 
-  const [mainQuestionList, dispatchMainQuestion] = useCreateQuizStore(
-    (state) => [state.mainQuestionList, state.dispatchMainQuestion]
-  );
+  const [mainQuestionList, quizId] = useCreateQuizStore((state) => [
+    state.mainQuestionList,
+    state.quizId,
+  ]);
 
   const { makeQuestionListAction, isLoading } = useMakeQuestionListAction();
 
@@ -165,14 +176,14 @@ const useMakeQuestionListAction = () => {
       mainQuestionList.map(async (mainQuestion) => {
         if (mainQuestion.descriptionImageFile) {
           const descriptionImagePath =
-            `public/quiz_${mainQuestion.step}/q${mainQuestion.step}_description`.replaceAll(
+            `quiz_${quizId}/q${mainQuestion.step}_description`.replaceAll(
               " ",
               ""
             );
-          const descriptionImageUrl = `${PATH}/storage/v1/object/${descriptionImagePath}`;
+          const descriptionImageUrl = `${PATH}/storage/v1/object/public/image/${descriptionImagePath}`;
 
           await insertImageMutateAsync({
-            path: descriptionImageUrl,
+            path: descriptionImagePath,
             fileBody: mainQuestion.descriptionImageFile,
           });
 
@@ -185,11 +196,11 @@ const useMakeQuestionListAction = () => {
 
         if (mainQuestion.solutionImageFile) {
           const solutionImagePath =
-            `public/quiz_${mainQuestion.step}/q${mainQuestion.step}_solution`.replaceAll(
+            `quiz_${mainQuestion.step}/q${mainQuestion.step}_solution`.replaceAll(
               " ",
               ""
             );
-          const solutionImageUrl = `${PATH}/storage/v1/object/${solutionImagePath}`;
+          const solutionImageUrl = `${PATH}/storage/v1/object/public/image/${solutionImagePath}`;
 
           await insertImageMutateAsync({
             path: solutionImagePath,

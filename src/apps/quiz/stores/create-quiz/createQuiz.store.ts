@@ -20,7 +20,11 @@ const initialState: CreateQuizInitialState = {
     solutionImageFile: null,
     answerValue: false,
   })),
-  finalList: [],
+  finalList: [...Array(3)].map((_, index) => ({
+    mainTitle: "",
+    descriptionExplanation: "",
+    maxRange: (index + 1) * 3 + 1,
+  })),
 };
 
 export const useCreateQuizStore = create(
@@ -46,6 +50,11 @@ export const useCreateQuizStore = create(
     dispatchMainQuestionWithStep: (key, value, step) => {
       set((state) => {
         state.mainQuestionList[step - 1][key] = value;
+      });
+    },
+    dispatchFinal: (key, value, index) => {
+      set((state) => {
+        state.finalList[index][key] = value;
       });
     },
   }))

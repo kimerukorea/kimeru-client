@@ -36,7 +36,6 @@ export const useCTAButton = () => {
 
   const handleButtonClick = (index: number) => async () => {
     if (answers) {
-      console.log(index);
       setAnswers(index);
 
       if (questionCount === currentStep && surveyFinalList) {
