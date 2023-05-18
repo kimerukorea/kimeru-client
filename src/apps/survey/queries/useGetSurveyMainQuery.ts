@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@suspensive/react-query";
 import { useRouter } from "next/router";
-import { getSurveyMain } from "../apis";
+import { getSurveyMainList } from "../apis";
 
 export const GET_SURVEY_MAIN_QUERY_KEY = "get-survey-main";
 
@@ -10,7 +10,7 @@ export const useGetSurveyMainQuery = () => {
 
   return useSuspenseQuery(
     [GET_SURVEY_MAIN_QUERY_KEY, surveyId],
-    () => getSurveyMain({ surveyId: surveyId! }),
+    () => getSurveyMainList({ surveyId: surveyId! }),
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60,

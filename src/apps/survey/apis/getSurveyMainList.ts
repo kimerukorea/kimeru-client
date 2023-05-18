@@ -1,6 +1,6 @@
 import { supabase } from "@/server";
 
-export const getSurveyMain = async ({ surveyId }: { surveyId: string }) => {
+export const getSurveyMainList = async ({ surveyId }: { surveyId: string }) => {
   const { data } = await supabase
     .from("surveyMainList")
     .select("*")

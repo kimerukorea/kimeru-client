@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { getSurveyInfo } from "../apis";
+import { getSurveyListById } from "../apis";
 
 export const GET_SURVEY_INFO_QUERY_KEY = "get-survey-info";
 
@@ -10,7 +10,7 @@ export const useGetSurveyInfoQuery = () => {
 
   return useQuery({
     queryKey: [GET_SURVEY_INFO_QUERY_KEY, surveyId],
-    queryFn: () => getSurveyInfo({ surveyId: surveyId! }),
+    queryFn: () => getSurveyListById({ surveyId: surveyId! }),
     refetchOnWindowFocus: true,
     staleTime: 1000 * 6,
   });
