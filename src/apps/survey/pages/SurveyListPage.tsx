@@ -1,8 +1,8 @@
 import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
+import { logoSize } from "@/constants/Sizes";
 import { VStack } from "@chakra-ui/react";
 import Image from "next/image";
-import { SurveyList } from "../components/survey-list/SurveyList";
-import { logoSize } from "@/constants/Sizes";
+import { SurveyList } from "../components/survey-list";
 
 export const SurveyListPage = () => {
   return (
