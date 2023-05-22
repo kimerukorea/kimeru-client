@@ -11,7 +11,7 @@ export const useGetSurvey = () => {
   const { data: surveyMainList } = useSurveyMainListQuery();
   const { data: surveyFinalList } = useSurveyFinalListQuery(true);
   const { data: surveyListById } = useSurveyListByIdQuery();
-  const [convertFetchDataToChartData, _] = useState(() => {
+  const [convertFetchDataToChartData] = useState(() => {
     const store: ChartDataStore[] = [];
 
     if (!surveyFinalList || !surveyListById) return store;
