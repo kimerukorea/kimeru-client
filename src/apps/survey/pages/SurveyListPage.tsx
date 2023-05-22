@@ -1,5 +1,4 @@
 import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
-import { logoSize } from "@/constants/Sizes";
 import { useStepStore } from "@/stores";
 import { VStack } from "@chakra-ui/react";
 import Image from "next/image";
@@ -19,8 +18,8 @@ export const SurveyListPage = () => {
       <Image
         src="/logo.png"
         alt="kimeru survey version"
-        width={logoSize.width}
-        height={logoSize.height}
+        width={300}
+        height={270}
       />
       <SurveyList />
     </VStack>
