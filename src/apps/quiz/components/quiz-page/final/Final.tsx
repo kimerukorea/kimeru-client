@@ -18,7 +18,7 @@ export const Final = () => {
   const { finalInfo } = useFinalInfo();
   const { data: quizInfo } = useGetQuizInfoQuery();
   const { answerCount } = useAnswer();
-  const { onShareLink, onMoveOtherContents } = useCTAButton();
+  const { onShareLink, onMoveOtherPath } = useCTAButton();
   const lottieAnimationData = useFinalLottieSrc();
 
   return (
@@ -66,7 +66,7 @@ export const Final = () => {
           <ShadowedButton
             rightIcon={<HamburgerIcon />}
             width="full"
-            onClick={onMoveOtherContents}
+            onClick={onMoveOtherPath}
           >
             다른 테스트하기
           </ShadowedButton>

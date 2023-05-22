@@ -3,7 +3,7 @@ import {
   useSurveyListByIdQuery,
   useSurveyMainListQuery,
 } from "@/apps/survey/queries";
-import { useMoveOtherContents, useShareLink } from "@/hooks";
+import { useMoveOtherPath, useShareLink } from "@/hooks";
 import { useState } from "react";
 import { ChartDataStore } from "./Final.types";
 
@@ -43,12 +43,12 @@ export const useGetSurvey = () => {
 
 export const useCTAButton = () => {
   const { onShareLink } = useShareLink();
-  const { onMoveOtherContents } = useMoveOtherContents({
+  const { onMoveOtherPath } = useMoveOtherPath({
     path: "/survey-list",
   });
 
   return {
     onShareLink,
-    onMoveOtherContents,
+    onMoveOtherPath,
   };
 };

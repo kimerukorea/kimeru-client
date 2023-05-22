@@ -15,7 +15,7 @@ import { useCTAButton } from "./Landing.hooks";
 
 export const Landing = () => {
   const { surveyListById } = useSurveyListById();
-  const { onMoveOtherContents, onStartSurvey } = useCTAButton();
+  const { onMoveOtherPath, onStartSurvey } = useCTAButton();
 
   return (
     <VStack gap={20}>
@@ -56,7 +56,7 @@ export const Landing = () => {
           <ShadowedButton
             rightIcon={<ExternalLinkIcon />}
             width="full"
-            onClick={onMoveOtherContents}
+            onClick={onMoveOtherPath}
             colorScheme="whiteAlpha"
           >
             메인 페이지 가기

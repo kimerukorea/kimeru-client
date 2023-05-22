@@ -1,7 +1,7 @@
 import excellent from "@/apps/quiz/assets/json/excellent.json";
 import good from "@/apps/quiz/assets/json/good.json";
 import poor from "@/apps/quiz/assets/json/poor.json";
-import { useMoveOtherContents, useShareLink } from "@/hooks";
+import { useMoveOtherPath, useShareLink } from "@/hooks";
 import { useGetQuizFinalQuery } from "../../../queries";
 import { useAnswerStore } from "../../../stores/answer/answer.store";
 
@@ -27,13 +27,13 @@ export const useAnswer = () => {
 
 export const useCTAButton = () => {
   const { onShareLink } = useShareLink();
-  const { onMoveOtherContents } = useMoveOtherContents({
+  const { onMoveOtherPath } = useMoveOtherPath({
     path: "/",
   });
 
   return {
     onShareLink,
-    onMoveOtherContents,
+    onMoveOtherPath,
   };
 };
 

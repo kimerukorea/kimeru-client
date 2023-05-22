@@ -1,14 +1,14 @@
-import { useMoveOtherContents } from "@/hooks";
+import { useMoveOtherPath } from "@/hooks";
 import { useStepStore } from "@/stores";
 
 export const useCTAButton = () => {
-  const { onMoveOtherContents } = useMoveOtherContents({
+  const { onMoveOtherPath } = useMoveOtherPath({
     path: "/survey-list",
   });
   const onStartSurvey = useStartButton();
 
   return {
-    onMoveOtherContents,
+    onMoveOtherPath,
     onStartSurvey,
   };
 };
