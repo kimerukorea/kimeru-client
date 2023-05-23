@@ -25,7 +25,7 @@ export const Final = () => {
   const { onMoveSurveyMain, onShareLink } = useCTAButton();
 
   return (
-    <VStack backgroundColor="gray.900" pb="40px">
+    <VStack pb="40px">
       <LottieAnimation loop autoplay animationData={stats} />
 
       {surveyMainList?.map((item, index) => (
