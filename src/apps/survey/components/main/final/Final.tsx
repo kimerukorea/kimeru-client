@@ -21,7 +21,7 @@ import {
 } from "./Final.styles";
 
 export const Final = () => {
-  const { convertFetchDataToChartData, surveyMainList } = useGetSurvey();
+  const { convertData, surveyMainList } = useGetSurvey();
   const { onMoveSurveyMain, onShareLink } = useCTAButton();
 
   return (
@@ -37,7 +37,7 @@ export const Final = () => {
           <Box width="300px" height="200px">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={convertFetchDataToChartData[index]}
+                data={convertData[index]}
                 margin={{
                   top: 5,
                   right: 50,
@@ -65,7 +65,7 @@ export const Final = () => {
                 />
                 <Tooltip />
                 <Bar dataKey="비율" fill={palette[index]} barSize={20}>
-                  {convertFetchDataToChartData[index].map((item) => (
+                  {convertData[index].map((item) => (
                     <Cell
                       key={item.name}
                       fill={palette[Math.floor(Math.random() * 10)]}

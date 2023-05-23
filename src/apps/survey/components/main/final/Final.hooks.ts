@@ -5,14 +5,24 @@ import {
 } from "@/apps/survey/queries";
 import { useShareLink } from "@/hooks";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback } from "react";
 import { ChartDataStore } from "./Final.types";
 
 export const useGetSurvey = () => {
   const { data: surveyMainList } = useSurveyMainListQuery();
+  const { convertData } = useConvertFetchDataToChartData();
+
+  return {
+    convertData,
+    surveyMainList,
+  };
+};
+
+const useConvertFetchDataToChartData = () => {
   const { data: surveyFinalList } = useSurveyFinalListQuery();
   const { data: surveyInfo } = useSurveyListByIdQuery();
-  const [convertFetchDataToChartData] = useState(() => {
+
+  const onConvertFetchDataToChartData = useCallback(() => {
     const store: ChartDataStore[] = [];
 
     if (!surveyFinalList || !surveyInfo) return store;
@@ -34,11 +44,10 @@ export const useGetSurvey = () => {
     });
 
     return store;
-  });
+  }, [surveyFinalList, surveyInfo]);
 
   return {
-    convertFetchDataToChartData,
-    surveyMainList,
+    convertData: onConvertFetchDataToChartData(),
   };
 };
 
