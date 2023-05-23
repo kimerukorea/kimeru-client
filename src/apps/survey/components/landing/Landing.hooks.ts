@@ -2,10 +2,8 @@ import { useMoveOtherPath } from "@/hooks";
 import { useStepStore } from "@/stores";
 
 export const useCTAButton = () => {
-  const { onMoveOtherPath } = useMoveOtherPath({
-    path: "/survey-list",
-  });
-  const onStartSurvey = useStartButton();
+  const { onStartSurvey } = useStartButton();
+  const { onMoveOtherPath } = useGoMainPageButton();
 
   return {
     onMoveOtherPath,
@@ -20,5 +18,13 @@ const useStartButton = () => {
     goToNext();
   };
 
-  return onStartSurvey;
+  return { onStartSurvey };
+};
+
+const useGoMainPageButton = () => {
+  const { onMoveOtherPath } = useMoveOtherPath({
+    path: "/survey-list",
+  });
+
+  return { onMoveOtherPath };
 };
