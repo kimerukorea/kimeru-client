@@ -30,14 +30,19 @@ export const useCTAButton = () => {
     myAnswers: state.answers,
     setAnswers: state.setAnswers,
   }));
-  const { data: surveyListById } = useSurveyListByIdQuery();
+  const { data: surveyInfo } = useSurveyListByIdQuery();
 
   const handleButtonClick = (index: number) => async () => {
     setAnswers(index);
 
+    console.log(surveyFinalList);
+
     if (questionCount === currentStep && surveyFinalList) {
       const _myAnswers = [...myAnswers, index];
       const statistics = surveyFinalList.statistics;
+
+      console.log(statistics);
+      console.log(_myAnswers);
 
       _myAnswers.forEach((answer, index) => {
         const select = Object.keys(statistics[index])[answer];
@@ -52,11 +57,11 @@ export const useCTAButton = () => {
         })
         .eq("surveyId", surveyId);
 
-      if (status === HTTP_STATUS_CODE.success && surveyListById) {
+      if (status === HTTP_STATUS_CODE.success && surveyInfo) {
         await supabase
           .from("surveyList")
           .update({
-            participationCount: surveyListById.participationCount + 1,
+            participationCount: surveyInfo.participationCount + 1,
           })
           .eq("id", surveyId);
       }

@@ -3,6 +3,7 @@ import {
   useSurveyListByIdQuery,
   useSurveyMainListQuery,
 } from "@/apps/survey/queries";
+import { useAnswersStore } from "@/apps/survey/stores";
 import { useShareLink } from "@/hooks";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
@@ -62,9 +63,13 @@ export const useCTAButton = () => {
 };
 
 export const useMoveSurveyMainButton = () => {
+  const dispatchInitialize = useAnswersStore(
+    (state) => state.dispatchInitialize
+  );
   const { replace } = useRouter();
 
   const onMoveSurveyMain = () => {
+    dispatchInitialize();
     replace("/survey-list");
   };
 
