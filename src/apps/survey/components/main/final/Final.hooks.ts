@@ -11,11 +11,11 @@ import { ChartDataStore } from "./Final.types";
 export const useGetSurvey = () => {
   const { data: surveyMainList } = useSurveyMainListQuery();
   const { data: surveyFinalList } = useSurveyFinalListQuery();
-  const { data: surveyListById } = useSurveyListByIdQuery();
+  const { data: surveyInfo } = useSurveyListByIdQuery();
   const [convertFetchDataToChartData] = useState(() => {
     const store: ChartDataStore[] = [];
 
-    if (!surveyFinalList || !surveyListById) return store;
+    if (!surveyFinalList || !surveyInfo) return store;
 
     surveyFinalList.statistics.forEach((stat) => {
       const statOfKeys = Object.keys(stat);
@@ -25,7 +25,7 @@ export const useGetSurvey = () => {
         newStore.push({
           name: key,
           비율: Number(
-            ((stat[key] / surveyListById.participationCount) * 100).toFixed(2)
+            ((stat[key] / surveyInfo.participationCount) * 100).toFixed(2)
           ),
         });
       });
@@ -61,3 +61,4 @@ export const useMoveSurveyMainButton = () => {
 
   return { onMoveSurveyMain };
 };
+g;
