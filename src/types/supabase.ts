@@ -1,10 +1,6 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json }
-  | Json[];
+export type Json = {
+  [prop in string]: number;
+};
 
 export interface Database {
   public: {
@@ -128,6 +124,26 @@ export interface Database {
           thumbnailImageUrl?: string;
         };
       };
+      surveyFinalList: {
+        Row: {
+          created_at: string;
+          id: number;
+          statistics: Json[];
+          surveyId: number;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          statistics?: Json[];
+          surveyId: number;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          statistics?: Json[];
+          surveyId?: number;
+        };
+      };
       surveyList: {
         Row: {
           created_at: string | null;
@@ -154,6 +170,35 @@ export interface Database {
           participationCount?: number;
           questionCount?: number;
           thumbnailImageUrl?: string;
+          title?: string;
+        };
+      };
+      surveyMainList: {
+        Row: {
+          answers: string[];
+          created_at: string;
+          id: number;
+          question: string;
+          step: number;
+          surveyId: number;
+          title: string;
+        };
+        Insert: {
+          answers?: string[];
+          created_at?: string;
+          id?: number;
+          question: string;
+          step: number;
+          surveyId: number;
+          title: string;
+        };
+        Update: {
+          answers?: string[];
+          created_at?: string;
+          id?: number;
+          question?: string;
+          step?: number;
+          surveyId?: number;
           title?: string;
         };
       };

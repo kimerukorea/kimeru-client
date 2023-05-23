@@ -1,4 +1,4 @@
-import { useStepStore } from "@/apps/quiz/stores/step/step.store";
+import { useStepStore } from "@/stores";
 import { useRouter } from "next/router";
 
 export const useCTAButton = () => {

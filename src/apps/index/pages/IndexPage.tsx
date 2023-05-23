@@ -1,8 +1,8 @@
+import { Footer } from "@/apps/index/components/footer";
+import { QuizList } from "@/apps/index/components/quiz-list";
 import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
 import { VStack } from "@chakra-ui/react";
 import Image from "next/image";
-import { QuizList } from "@/apps/index/components/quiz-list";
-import { Footer } from "@/apps/index/components/footer";
 
 export const IndexPage = () => {
   return (

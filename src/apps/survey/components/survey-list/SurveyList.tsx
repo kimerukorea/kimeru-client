@@ -1,41 +1,30 @@
-import { useGetQuizListQuery } from "@/apps/index/queries/useGetQuizListQuery";
 import {
   defaultSlideFadeInVariants,
   framerMocker,
   staggerHalf,
 } from "@/constants/Motions";
-import { touchable } from "@/styles";
 import Spacing from "@/styles/emotion-utils/spacing/spacing";
 import { ViewIcon } from "@chakra-ui/icons";
-import {
-  Divider,
-  Flex,
-  Heading,
-  Link,
-  List,
-  ListItem,
-  Text,
-} from "@chakra-ui/react";
-import styled from "@emotion/styled";
+import { Divider, Flex, Heading, List, ListItem, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { useGetSurveyListQuery } from "../../queries/useGetSurveyListQuery";
+import { useSurveyListQuery } from "../../queries";
+import { StyledLogoImage, TouchableLink } from "./styles";
 
 export const SurveyList = () => {
-  const { surveyList } = useGetSurveyListQuery();
+  const { surveyList } = useSurveyListQuery();
 
   return (
     <List
       as={motion.ul}
       variants={staggerHalf}
-      {...framerMocker}
       width="100%"
       paddingX="4"
+      {...framerMocker}
     >
       {surveyList?.map((survey) => (
         <ListItem
-          as={motion.li}
           key={survey.id}
+          as={motion.li}
           variants={defaultSlideFadeInVariants("bottom")}
           marginY="4"
         >
@@ -55,6 +44,7 @@ export const SurveyList = () => {
                 <Heading size="sm" color="orange.200" fontWeight="bold">
                   {survey.title}
                 </Heading>
+
                 <Flex alignItems="center" gap={1}>
                   <ViewIcon color="whiteAlpha.900" />
                   <Text color="whiteAlpha.900" fontSize="xs">
@@ -63,7 +53,9 @@ export const SurveyList = () => {
                 </Flex>
               </Flex>
             </Flex>
+
             <Spacing size={10} />
+
             <Divider />
           </TouchableLink>
         </ListItem>
@@ -71,12 +63,3 @@ export const SurveyList = () => {
     </List>
   );
 };
-
-export const StyledLogoImage = styled(Image)`
-  border-radius: 4px;
-  aspect-ratio: 1;
-`;
-
-export const TouchableLink = styled(Link)`
-  ${touchable}
-`;
