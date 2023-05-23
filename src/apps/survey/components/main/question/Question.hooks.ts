@@ -1,8 +1,4 @@
-import {
-  useCurrentQuestion,
-  useGetSurveyId,
-  useQuestionCount,
-} from "@/apps/survey/hooks";
+import { useGetSurveyId, useQuestionCount } from "@/apps/survey/hooks";
 import {
   useSurveyFinalListQuery,
   useSurveyListByIdQuery,
@@ -18,9 +14,6 @@ export const useCTAButton = () => {
     goToNext: state.goToNext,
     currentStep: state.currentStep,
   }));
-
-  const currentQuestion = useCurrentQuestion();
-  const { answers } = currentQuestion;
 
   const { questionCount } = useQuestionCount();
 
