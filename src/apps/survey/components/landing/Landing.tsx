@@ -5,13 +5,13 @@ import {
 } from "@/constants/Motions";
 import { Spacing } from "@/styles";
 import { ChevronRightIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import { Button, Heading, Portal, Text, VStack } from "@chakra-ui/react";
-import styled from "@emotion/styled";
+import { Heading, Portal, Text, VStack } from "@chakra-ui/react";
 import { commaizeNumber } from "@toss/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useSurveyListById } from "../../hooks";
 import { useCTAButton } from "./Landing.hooks";
+import { BottomButtonGroup, ShadowedButton } from "./Landing.styles";
 
 export const Landing = () => {
   const { surveyListById } = useSurveyListById();
@@ -73,16 +73,3 @@ export const Landing = () => {
     </VStack>
   );
 };
-
-const BottomButtonGroup = styled(motion.div)`
-  position: fixed;
-  left: 20px;
-  right: 20px;
-  bottom: 40px;
-  display: flex;
-  gap: 8px;
-`;
-
-const ShadowedButton = styled(Button)`
-  box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
-`;
