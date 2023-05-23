@@ -22,7 +22,7 @@ import {
 
 export const Final = () => {
   const { convertFetchDataToChartData, surveyMainList } = useGetSurvey();
-  const { onMoveOtherPath, onShareLink } = useCTAButton();
+  const { onMoveSurveyMain, onShareLink } = useCTAButton();
 
   return (
     <VStack backgroundColor="white">
@@ -85,7 +85,7 @@ export const Final = () => {
         <ShadowedButton
           rightIcon={<HamburgerIcon />}
           width="full"
-          onClick={onMoveOtherPath}
+          onClick={onMoveSurveyMain}
         >
           다른 테스트하기
         </ShadowedButton>

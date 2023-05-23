@@ -1,12 +1,12 @@
-import { useMoveOtherPath } from "@/hooks";
 import { useStepStore } from "@/stores";
+import { useRouter } from "next/router";
 
 export const useCTAButton = () => {
   const { onStartSurvey } = useStartButton();
-  const { onMoveOtherPath } = useGoMainPageButton();
+  const { onMoveSurveyMain } = useMoveSurveyMainButton();
 
   return {
-    onMoveOtherPath,
+    onMoveSurveyMain,
     onStartSurvey,
   };
 };
@@ -21,10 +21,12 @@ const useStartButton = () => {
   return { onStartSurvey };
 };
 
-const useGoMainPageButton = () => {
-  const { onMoveOtherPath } = useMoveOtherPath({
-    path: "/survey-list",
-  });
+const useMoveSurveyMainButton = () => {
+  const { replace } = useRouter();
 
-  return { onMoveOtherPath };
+  const onMoveSurveyMain = () => {
+    replace("/survey-list");
+  };
+
+  return { onMoveSurveyMain };
 };
