@@ -1,16 +1,17 @@
+import { Footer } from "@/components/@shared";
 import OpenGraph from "@/components/@shared/open-graph/OpenGraph";
-import { useStepStore } from "@/stores";
-import { VStack } from "@chakra-ui/react";
+import { IconButton, VStack } from "@chakra-ui/react";
 import Image from "next/image";
-import { useEffect } from "react";
 import { SurveyList } from "../components/survey-list";
+import {
+  useClickFooterButton,
+  useInitialization,
+} from "./SurveyListPage.hooks";
+import { QuizIcon } from "@/assets/svg/quiz";
 
 export const SurveyListPage = () => {
-  const dispatchInitialize = useStepStore((state) => state.dispatchInitialize);
-
-  useEffect(() => {
-    dispatchInitialize();
-  }, [dispatchInitialize]);
+  useInitialization();
+  const { handleQuizButtonClick } = useClickFooterButton();
 
   return (
     <VStack>
@@ -22,6 +23,17 @@ export const SurveyListPage = () => {
         height={270}
       />
       <SurveyList />
+      <Footer
+        iconButtonList={[
+          <IconButton
+            key="create"
+            aria-label="create"
+            icon={<QuizIcon />}
+            size="sm"
+            onClick={handleQuizButtonClick}
+          />,
+        ]}
+      />
     </VStack>
   );
 };

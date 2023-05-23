@@ -1,19 +1,13 @@
-import { AddIcon, ChatIcon, EmailIcon } from "@chakra-ui/icons";
-import {
-  Flex,
-  HStack,
-  IconButton,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { GithubIcon } from "../../assets/svg/github";
+import { GithubIcon } from "@/assets/svg/github";
+import { ChatIcon, EmailIcon } from "@chakra-ui/icons";
+import { Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Fragment } from "react";
 import { useClickButton } from "./Footer.hooks";
+import { FooterProps } from "./Footer.types";
 import { InquiryModal } from "./inquiry-modal/InquiryModal";
 
-export const Footer = () => {
-  useDisclosure;
+export const Footer = ({ iconButtonList }: FooterProps) => {
   const {
-    handleAddButtonClick,
     handleInquiryButtonClick,
     handleMailButtonClick,
     handleGithubButtonClick,
@@ -30,15 +24,12 @@ export const Footer = () => {
         © {new Date().getFullYear()} kimeru
       </Text>
       <Flex gap={2}>
+        {iconButtonList?.map((iconButton, index) => (
+          <Fragment key={index}>{iconButton}</Fragment>
+        ))}
+
         <IconButton
-          aria-label="email"
-          fontSize="18px"
-          icon={<AddIcon />}
-          size="sm"
-          onClick={handleAddButtonClick}
-        />
-        <IconButton
-          aria-label="email"
+          aria-label="inquiry"
           fontSize="18px"
           icon={<ChatIcon />}
           size="sm"
@@ -52,7 +43,7 @@ export const Footer = () => {
           onClick={handleMailButtonClick}
         />
         <IconButton
-          aria-label="email"
+          aria-label="github"
           icon={<GithubIcon />}
           size="sm"
           onClick={handleGithubButtonClick}
