@@ -4,7 +4,7 @@ import { useGetSurveyId } from "../hooks";
 
 export const GET_SURVEY_FINAL_LIST_QUERY_KEY = "get-survey-final-list";
 
-export const useSurveyFinalListQuery = (isFinalQuestion: boolean) => {
+export const useSurveyFinalListQuery = () => {
   const { surveyId } = useGetSurveyId();
 
   return useQuery({
@@ -12,6 +12,5 @@ export const useSurveyFinalListQuery = (isFinalQuestion: boolean) => {
     queryFn: () => getSurveyFinalList({ surveyId }),
     refetchOnWindowFocus: true,
     staleTime: 1000 * 6,
-    enabled: isFinalQuestion,
   });
 };

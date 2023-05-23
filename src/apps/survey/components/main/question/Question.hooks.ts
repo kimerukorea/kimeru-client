@@ -24,9 +24,7 @@ export const useCTAButton = () => {
 
   const { questionCount } = useQuestionCount();
 
-  const { data: surveyFinalList } = useSurveyFinalListQuery(
-    questionCount === currentStep
-  );
+  const { data: surveyFinalList } = useSurveyFinalListQuery();
   const { surveyId } = useGetSurveyId();
   const { myAnswers, setAnswers } = useAnswersStore((state) => ({
     myAnswers: state.answers,

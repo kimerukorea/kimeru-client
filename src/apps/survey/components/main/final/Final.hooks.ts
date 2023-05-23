@@ -10,7 +10,7 @@ import { ChartDataStore } from "./Final.types";
 
 export const useGetSurvey = () => {
   const { data: surveyMainList } = useSurveyMainListQuery();
-  const { data: surveyFinalList } = useSurveyFinalListQuery(true);
+  const { data: surveyFinalList } = useSurveyFinalListQuery();
   const { data: surveyListById } = useSurveyListByIdQuery();
   const [convertFetchDataToChartData] = useState(() => {
     const store: ChartDataStore[] = [];
