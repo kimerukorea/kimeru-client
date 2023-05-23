@@ -61,4 +61,3 @@ export const useMoveSurveyMainButton = () => {
 
   return { onMoveSurveyMain };
 };
-g;
