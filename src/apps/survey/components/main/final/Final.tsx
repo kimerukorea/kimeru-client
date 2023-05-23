@@ -25,7 +25,7 @@ export const Final = () => {
   const { onMoveSurveyMain, onShareLink } = useCTAButton();
 
   return (
-    <VStack backgroundColor="white" pb="40px">
+    <VStack backgroundColor="gray.900" pb="40px">
       <LottieAnimation loop autoplay animationData={stats} />
 
       {surveyMainList?.map((item, index) => (
@@ -47,12 +47,21 @@ export const Final = () => {
                 layout="vertical"
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis type="number" fontSize={12} />
+                <XAxis
+                  type="number"
+                  fontSize={12}
+                  tick={{
+                    fill: "#FFFFFF",
+                  }}
+                />
                 <YAxis
                   type="category"
                   dataKey="name"
                   width={100}
                   fontSize={12}
+                  tick={{
+                    fill: "#FFFFFF",
+                  }}
                 />
                 <Tooltip />
                 <Bar dataKey="비율" fill={palette[index]} barSize={20}>
