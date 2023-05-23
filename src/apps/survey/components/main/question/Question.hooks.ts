@@ -1,8 +1,4 @@
-import {
-  useCurrentQuestion,
-  useGetSurveyId,
-  useQuestionCount,
-} from "@/apps/survey/hooks";
+import { useGetSurveyId, useQuestionCount } from "@/apps/survey/hooks";
 import {
   useSurveyFinalListQuery,
   useSurveyListByIdQuery,
@@ -19,9 +15,6 @@ export const useCTAButton = () => {
     currentStep: state.currentStep,
   }));
 
-  const currentQuestion = useCurrentQuestion();
-  const { answers } = currentQuestion;
-
   const { questionCount } = useQuestionCount();
 
   const { data: surveyFinalList } = useSurveyFinalListQuery();
@@ -30,19 +23,17 @@ export const useCTAButton = () => {
     myAnswers: state.answers,
     setAnswers: state.setAnswers,
   }));
-  const { data: surveyListById } = useSurveyListByIdQuery();
+  const { data: surveyInfo } = useSurveyListByIdQuery();
 
-  const handleButtonClick = (index: number) => async () => {
-    setAnswers(index);
+  const handleButtonClick = (answer: string) => async () => {
+    setAnswers(answer);
 
     if (questionCount === currentStep && surveyFinalList) {
-      const _myAnswers = [...myAnswers, index];
+      const _myAnswers = [...myAnswers, answer];
       const statistics = surveyFinalList.statistics;
 
       _myAnswers.forEach((answer, index) => {
-        const select = Object.keys(statistics[index])[answer];
-
-        statistics[index][select] += 1;
+        statistics[index][answer] += 1;
       });
 
       const { status } = await supabase
@@ -52,11 +43,11 @@ export const useCTAButton = () => {
         })
         .eq("surveyId", surveyId);
 
-      if (status === HTTP_STATUS_CODE.success && surveyListById) {
+      if (status === HTTP_STATUS_CODE.success && surveyInfo) {
         await supabase
           .from("surveyList")
           .update({
-            participationCount: surveyListById.participationCount + 1,
+            participationCount: surveyInfo.participationCount + 1,
           })
           .eq("id", surveyId);
       }

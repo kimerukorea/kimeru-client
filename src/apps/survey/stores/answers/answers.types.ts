@@ -1,8 +1,8 @@
 export type AnswersInitialState = {
-  answers: number[];
+  answers: string[];
 };
 
 export interface AnswersState extends AnswersInitialState {
-  setAnswers: (answer: number) => void;
+  setAnswers: (answer: string) => void;
   dispatchInitialize: VoidFunction;
 }

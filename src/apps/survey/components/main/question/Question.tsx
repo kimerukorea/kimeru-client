@@ -22,13 +22,13 @@ export const Question = () => {
           {question}
         </Text>
 
-        {answers.map((answer, index) => (
+        {answers.map((answer) => (
           <Button
             key={answer}
             variant="ghost"
             color="orange.300"
             colorScheme="whiteAlpha"
-            onClick={handleButtonClick(index)}
+            onClick={handleButtonClick(answer)}
           >
             {answer}
           </Button>
