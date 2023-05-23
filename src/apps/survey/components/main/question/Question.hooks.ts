@@ -33,38 +33,36 @@ export const useCTAButton = () => {
   const { data: surveyListById } = useSurveyListByIdQuery();
 
   const handleButtonClick = (index: number) => async () => {
-    if (answers) {
-      setAnswers(index);
+    setAnswers(index);
 
-      if (questionCount === currentStep && surveyFinalList) {
-        const _myAnswers = [...myAnswers, index];
-        const statistics = surveyFinalList.statistics;
+    if (questionCount === currentStep && surveyFinalList) {
+      const _myAnswers = [...myAnswers, index];
+      const statistics = surveyFinalList.statistics;
 
-        _myAnswers.forEach((answer, index) => {
-          const select = Object.keys(statistics[index])[answer];
+      _myAnswers.forEach((answer, index) => {
+        const select = Object.keys(statistics[index])[answer];
 
-          statistics[index][select] += 1;
-        });
+        statistics[index][select] += 1;
+      });
 
-        const { status } = await supabase
-          .from("surveyFinalList")
+      const { status } = await supabase
+        .from("surveyFinalList")
+        .update({
+          statistics,
+        })
+        .eq("surveyId", surveyId);
+
+      if (status === HTTP_STATUS_CODE.success && surveyListById) {
+        await supabase
+          .from("surveyList")
           .update({
-            statistics,
+            participationCount: surveyListById.participationCount + 1,
           })
-          .eq("surveyId", surveyId);
-
-        if (status === HTTP_STATUS_CODE.success && surveyListById) {
-          await supabase
-            .from("surveyList")
-            .update({
-              participationCount: surveyListById.participationCount + 1,
-            })
-            .eq("id", surveyId);
-        }
+          .eq("id", surveyId);
       }
-
-      goToNext();
     }
+
+    goToNext();
   };
 
   return {
