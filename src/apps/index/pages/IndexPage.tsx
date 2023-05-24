@@ -27,8 +27,8 @@ export const IndexPage = () => {
             onClick={handleAddButtonClick}
           />,
           <IconButton
-            key="survey"
-            aria-label="survey"
+            key="go-survey"
+            aria-label="go-survey"
             fontSize="18px"
             icon={<SurveyIcon />}
             size="sm"
