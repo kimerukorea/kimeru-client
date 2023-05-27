@@ -1,5 +1,5 @@
 {
-  "singleQuote": true,
+  "singleQuote": false,
   "arrowParens": "always",
   "printWidth": 80,
   "quoteProps": "preserve",
