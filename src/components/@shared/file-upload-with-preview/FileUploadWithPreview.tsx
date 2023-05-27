@@ -16,7 +16,7 @@ const FileUploadWithPreviewComponent = ({
 }: FileUploadWithPreviewProps) => {
   return (
     <Box>
-      <FormLabel>
+      <FormLabel width="fit-content">
         <Badge fontSize="md" py="1" px="3">
           {badgeText} <DownloadIcon />
         </Badge>
