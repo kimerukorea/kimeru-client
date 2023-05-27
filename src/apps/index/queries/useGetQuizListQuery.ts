@@ -4,7 +4,7 @@ import { getQuizList } from "../apis/getQuizList";
 export const GET_QUIZ_LIST_QUERY_KEY = "get-quiz-list";
 
 export const useGetQuizListQuery = () => {
-  const { data } = useQuery([GET_QUIZ_LIST_QUERY_KEY], () => getQuizList(), {
+  const { data } = useQuery([GET_QUIZ_LIST_QUERY_KEY], getQuizList, {
     refetchOnMount: false,
   });
 
